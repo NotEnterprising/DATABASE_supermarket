@@ -9,14 +9,14 @@ from .models import Customer
 
 class CustomerListView(ListView):
     model = Customer
-    context_object_name = 'Customer_list'
-    template_name = "Customer/Customer_list.html"
+    context_object_name = 'customer_list'
+    template_name = "customer/customer_list.html"
 
 
 class CustomerDetailView(DetailView):
     model = Customer
-    template_name = "Customer/Customer_detail.html"
-    context_object_name = 'Customer'
+    template_name = "customer/customer_detail.html"
+    context_object_name = 'customer'
 
 
 class CustomerCreateView(SuccessMessageMixin, CreateView):
@@ -45,4 +45,4 @@ class CustomerUpdateView(SuccessMessageMixin, UpdateView):
 
 class CustomerDeleteView(DeleteView):
     model = Customer
-    success_url = reverse_lazy('Customer-list')
+    success_url = reverse_lazy('customer-list')
