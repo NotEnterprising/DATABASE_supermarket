@@ -1,10 +1,19 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.forms import widgets
+from django.forms import widgets, forms
 from django.urls import reverse_lazy
 
 from .models import Staff
+
+import hashlib
+
+
+def hash_code(s, salt='mysite_login'):
+    h = hashlib.sha256()
+    s += salt
+    h.update(s.encode())
+    return h.hexdigest()
 
 
 class StaffListView(ListView):
@@ -36,7 +45,8 @@ class StaffCreateView(SuccessMessageMixin, CreateView):
 class StaffUpdateView(SuccessMessageMixin, UpdateView):
     model = Staff
     fields = '__all__'
-    success_message = "Record successfully updated."
+    Staff.password = hash_code(Staff.password.__str__())
+    success_message = "员工信息修改成功."
 
     def get_form(self):
         '''add date picker in forms'''

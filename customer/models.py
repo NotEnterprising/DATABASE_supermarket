@@ -1,17 +1,18 @@
 from django.db import models
-from django.utils import timezone
 from django.urls import reverse
 from django.core.validators import RegexValidator
 
 
-class Admin(models.Model):
+class Customer(models.Model):
     GENDER = [
         ('male', '男'),
         ('female', '女')
     ]
 
-    name = models.CharField(max_length=200, verbose_name='姓名')
+    name = models.CharField(max_length=200, verbose_name='用户昵称')
     gender = models.CharField(max_length=10, choices=GENDER, default='男', verbose_name='性别')
+
+    balance = models.IntegerField(verbose_name='余额', default=0)
 
     username = models.CharField(max_length=200, verbose_name='用户名')
     password = models.CharField(max_length=200, verbose_name='密码')
@@ -25,4 +26,4 @@ class Admin(models.Model):
         return f'{self.name}'
 
     def get_absolute_url(self):
-        return reverse('admin-detail', kwargs={'pk': self.pk})
+        return reverse('staff-detail', kwargs={'pk': self.pk})
