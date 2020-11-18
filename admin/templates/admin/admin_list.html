@@ -20,13 +20,13 @@
     </thead>
     <tbody>
 
-      {% for staff in admin_list %}
+      {% for admin in admin_list %}
         <tr class='clickable-row' data-href="{% url 'admin-detail' staff.id %}">
           <td>{{ forloop.counter}}</td>
-          <td>{{ staff.name}}</td>
-          <td>{{ staff.get_gender_display}}</td>
-          <td>{{ staff.mobile_number}}</td>
-          <td>{{ staff.address}}</td>
+          <td>{{ admin.name}}</td>
+          <td>{{ admin.get_gender_display}}</td>
+          <td>{{ admin.mobile_number}}</td>
+          <td>{{ admin.address}}</td>
         </tr>
       {% endfor %}
 
