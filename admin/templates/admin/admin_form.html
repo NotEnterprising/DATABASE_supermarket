@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+
+  {% if object %}
+    修改{{ object }}的信息
+  {% else %}
+    加入新管理员
+  {% endif %}
+
+{% endblock title %}
+
+
+{% block content %}
+
+<form action="" method="POST">
+  {% csrf_token %}
+
+  {% include 'corecode/form_snippet.html' %}
+
+  {% if object %}
+    <input type="submit" class="btn btn-primary" value="修改">
+  {% else %}
+    <input type="submit" class="btn btn-primary" value="加入管理员">
+  {% endif %}
+</form>
+
+
+{% endblock content %}
