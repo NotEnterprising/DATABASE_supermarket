@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from django.core.validators import RegexValidator
+from school_app.settings import hash_code
 
 
 class Staff(models.Model):
@@ -27,3 +28,7 @@ class Staff(models.Model):
 
     def get_absolute_url(self):
         return reverse('staff-detail', kwargs={'pk': self.pk})
+
+    def save(self, *args, **kwargs):
+        self.password = hash_code(self.password)
+        super().save(*args, **kwargs)
