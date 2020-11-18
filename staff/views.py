@@ -10,11 +10,12 @@ from .models import Staff
 class StaffListView(ListView):
     model = Staff
     context_object_name = 'staff_list'
+    template_name = "staff/staff_list.html"
 
 
 class StaffDetailView(DetailView):
     model = Staff
-    template_name = "staffs/staff_detail.html"
+    template_name = "staff/staff_detail.html"
     context_object_name = 'staff'
 
 
