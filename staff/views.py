@@ -30,7 +30,6 @@ class StaffCreateView(SuccessMessageMixin, CreateView):
         form.fields['entry_date'].widget = widgets.DateInput(
             attrs={'type': 'date'})
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
-
         return form
 
 
@@ -41,7 +40,7 @@ class StaffUpdateView(SuccessMessageMixin, UpdateView):
 
     def get_form(self):
         '''add date picker in forms'''
-        form = super(StaffCreateView, self).get_form()
+        form = super(StaffUpdateView, self).get_form()
         form.fields['entry_date'].widget = widgets.DateInput(
             attrs={'type': 'date'})
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})

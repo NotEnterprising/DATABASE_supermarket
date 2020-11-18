@@ -17,7 +17,7 @@ class Staff(models.Model):
     username = models.CharField(max_length=200, verbose_name='用户名')
     password = models.CharField(max_length=200, verbose_name='密码')
 
-    mobile_num_regex = RegexValidator(regex="^[0-9]{11,8}$", message="输入的电话号码格式不对")
+    mobile_num_regex = RegexValidator(regex="^[0-9]{8,11}$", message="输入的电话号码格式不对")
     mobile_number = models.CharField(validators=[mobile_num_regex], max_length=13, blank=True, verbose_name='电话号码')
 
     address = models.TextField(blank=True, verbose_name='住址')
