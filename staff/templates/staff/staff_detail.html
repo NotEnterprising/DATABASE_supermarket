@@ -4,6 +4,9 @@
 
 {% block content-header %}
 <div class="card-header">
+  <a href="{% url 'staff-list' %}" class="btn btn-tool">
+    <i class="fas fa-backward"></i>
+  </a>
   <div class="card-tools">
     <a href="{% url 'staff-update' object.id %}" class="btn btn-tool">
       <i class="fas fa-edit"></i>
