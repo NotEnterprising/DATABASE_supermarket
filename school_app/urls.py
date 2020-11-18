@@ -22,6 +22,7 @@ urlpatterns = [
                   path('', include('corecode.urls')),
                   path('student/', include('students.urls')),
                   path('staff/', include('staff.urls')),
+                  path('staffs/', include('staffs.urls')),
                   path('finance/', include('finance.urls')),
                   path('result/', include('result.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
