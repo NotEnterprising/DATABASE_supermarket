@@ -27,7 +27,7 @@ class Customer(models.Model):
         return f'{self.name}'
 
     def get_absolute_url(self):
-        return reverse('staff-detail', kwargs={'pk': self.pk})
+        return reverse('customer-detail', kwargs={'pk': self.pk})
 
     def save(self, *args, **kwargs):
         self.password = hash_code(self.password)
