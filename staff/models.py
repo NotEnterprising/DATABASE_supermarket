@@ -6,7 +6,8 @@ from django.core.validators import RegexValidator
 
 class Staff(models.Model):
     GENDER = [
-        ('男', '女', '其他')
+        ('male', '男'),
+        ('female', '女')
     ]
 
     name = models.CharField(max_length=200)
