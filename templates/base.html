@@ -85,14 +85,17 @@
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column"
             data-widget="treeview" role="menu" data-accordion="false">
+
             <li class="nav-item">
               <a href="{% url 'student-list' %}" class="nav-link">
-                <i class="nav-icon fas fa-graduation-cap"></i>
+                <i class="nav-icon fas fa-shopping-bag"></i>
+{#                  -graduation-cap#}
                 <p>
                   Students
                 </p>
               </a>
             </li>
+
             <li class="nav-item">
               <a href="{% url 'staff-list' %}" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
@@ -125,6 +128,14 @@
                 <i class="nav-icon fas fa-money-bill-alt"></i>
                 <p>
                   Update Results
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'edit-results' %}" class="nav-link">
+                <i class="nav-icon fas fa-money-bill-alt"></i>
+                <p>
+                  数据库草泥马
                 </p>
               </a>
             </li>
