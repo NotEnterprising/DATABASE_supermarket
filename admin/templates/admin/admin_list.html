@@ -3,7 +3,7 @@
 {% block title %}管理员列表{% endblock title %}
 
 {% block breadcrumb %}
-<a class="btn btn-primary" href="{% url 'staff-create' %}"><i
+<a class="btn btn-primary" href="{% url 'admin-create' %}"><i
     class="fas fa-plus"></i> 新管理员</a>
 {% endblock breadcrumb %}
 
@@ -21,7 +21,7 @@
     <tbody>
 
       {% for staff in staff_list %}
-        <tr class='clickable-row' data-href="{% url 'staff-detail' staff.id %}">
+        <tr class='clickable-row' data-href="{% url 'admin-detail' staff.id %}">
           <td>{{ forloop.counter}}</td>
           <td>{{ staff.name}}</td>
           <td>{{ staff.get_gender_display}}</td>
