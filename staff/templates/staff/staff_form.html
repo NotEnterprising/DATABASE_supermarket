@@ -4,9 +4,9 @@
 {% block title %}
 
   {% if object %}
-    Update {{ object }}
+    更新 {{ object }}
   {% else %}
-    Add new student
+    加入新员工
   {% endif %}
 
 {% endblock title %}
@@ -20,9 +20,9 @@
   {% include 'corecode/form_snippet.html' %}
 
   {% if object %}
-    <input type="submit" class="btn btn-primary" value="Update Record">
+    <input type="submit" class="btn btn-primary" value="更新">
   {% else %}
-    <input type="submit" class="btn btn-primary" value="Add new student">
+    <input type="submit" class="btn btn-primary" value="加入员工">
   {% endif %}
 </form>
 
