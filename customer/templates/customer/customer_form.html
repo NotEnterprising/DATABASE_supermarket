@@ -4,9 +4,9 @@
 {% block title %}
 
   {% if object %}
-    修改管理员{{ object }}的信息
+    修改顾客{{ object }}的信息
   {% else %}
-    加入新管理员
+    加入新顾客
   {% endif %}
 
 {% endblock title %}
@@ -22,7 +22,7 @@
   {% if object %}
     <input type="submit" class="btn btn-primary" value="修改">
   {% else %}
-    <input type="submit" class="btn btn-primary" value="加入管理员">
+    <input type="submit" class="btn btn-primary" value="加入顾客">
   {% endif %}
 </form>
 
