@@ -11,7 +11,7 @@
   <table id="stafftable" class="table table-bordered table-hover">
     <thead class="thead-light">
       <tr>
-        <th>S/N</th>
+        <th>序号</th>
         <th>姓名</th>
         <th>性别</th>
         <th>入职日期</th>
@@ -27,7 +27,7 @@
         <tr class='clickable-row' data-href="{% url 'staff-detail' staff.id %}">
           <td>{{ forloop.counter}}</td>
           <td>{{ staff.name}}</td>
-          <td>{{ staff.gender}}</td>
+          <td>{{ staff.get_gender_display}}</td>
           <td>{{ staff.entry_date}}</td>
           <td>{{ staff.username}}</td>
           <td>{{ staff.password}}</td>
