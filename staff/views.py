@@ -30,6 +30,7 @@ class StaffCreateView(SuccessMessageMixin, CreateView):
         form.fields['entry_date'].widget = widgets.DateInput(
             attrs={'type': 'date'})
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
+
         return form
 
 
