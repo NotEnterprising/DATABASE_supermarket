@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -7,19 +8,19 @@ from django.urls import reverse_lazy
 from .models import Admin
 
 
-class AdminListView(ListView):
+class AdminListView(LoginRequiredMixin, ListView):
     model = Admin
     context_object_name = 'admin_list'
     template_name = "admin/admin_list.html"
 
 
-class AdminDetailView(DetailView):
+class AdminDetailView(LoginRequiredMixin, DetailView):
     model = Admin
     template_name = "admin/admin_detail.html"
     context_object_name = 'admin'
 
 
-class AdminCreateView(SuccessMessageMixin, CreateView):
+class AdminCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Admin
     fields = '__all__'
     success_message = '新管理员添加成功'
@@ -31,7 +32,7 @@ class AdminCreateView(SuccessMessageMixin, CreateView):
         return form
 
 
-class AdminUpdateView(SuccessMessageMixin, UpdateView):
+class AdminUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Admin
     fields = '__all__'
     success_message = "管理员信息修改成功."
@@ -43,6 +44,6 @@ class AdminUpdateView(SuccessMessageMixin, UpdateView):
         return form
 
 
-class AdminDeleteView(DeleteView):
+class AdminDeleteView(LoginRequiredMixin, DeleteView):
     model = Admin
     success_url = reverse_lazy('admin-list')

@@ -52,7 +52,7 @@ class SessionCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Add new session test test'
+        context['form'] = AcademicSessionForm()
         return context
 
 

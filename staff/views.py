@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -6,29 +7,20 @@ from django.urls import reverse_lazy
 
 from .models import Staff
 
-import hashlib
 
-
-def hash_code(s, salt='mysite_login'):
-    h = hashlib.sha256()
-    s += salt
-    h.update(s.encode())
-    return h.hexdigest()
-
-
-class StaffListView(ListView):
+class StaffListView(LoginRequiredMixin, ListView):
     model = Staff
     context_object_name = 'staff_list'
     template_name = "staff/staff_list.html"
 
 
-class StaffDetailView(DetailView):
+class StaffDetailView(LoginRequiredMixin, DetailView):
     model = Staff
     template_name = "staff/staff_detail.html"
     context_object_name = 'staff'
 
 
-class StaffCreateView(SuccessMessageMixin, CreateView):
+class StaffCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Staff
     fields = '__all__'
     success_message = '新员工添加成功'
@@ -42,10 +34,9 @@ class StaffCreateView(SuccessMessageMixin, CreateView):
         return form
 
 
-class StaffUpdateView(SuccessMessageMixin, UpdateView):
+class StaffUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Staff
     fields = '__all__'
-    Staff.password = hash_code(Staff.password.__str__())
     success_message = "员工信息修改成功."
 
     def get_form(self):
@@ -57,6 +48,6 @@ class StaffUpdateView(SuccessMessageMixin, UpdateView):
         return form
 
 
-class StaffDeleteView(DeleteView):
+class StaffDeleteView(LoginRequiredMixin, DeleteView):
     model = Staff
     success_url = reverse_lazy('staff-list')
