@@ -26,8 +26,7 @@
           <h3>{{ object }} </h3>
           <h5>{{ object.current_class }} </h5>
           <h5>{{ object.get_gender_display }} </h5>
-          <h5>{{ object.get_current_status_display }} </h5>
-          <p>顾客</p>
+          <p>{{ object.get_vip_level_display }}</p>
           <h6>用户名:{{ object.username }} </h6>
         </div>
       </div>
@@ -64,8 +63,5 @@
 
       </div>
     </div>
-
-
-
 
 {% endblock content %}

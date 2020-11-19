@@ -9,10 +9,15 @@ class Customer(models.Model):
         ('male', '男'),
         ('female', '女')
     ]
-
+    VIP = [
+        ('one', '非会员'),
+        ('two', '普通会员'),
+        ('three', '超级会员'),
+    ]
     name = models.CharField(max_length=200, verbose_name='用户昵称')
     gender = models.CharField(max_length=10, choices=GENDER, default='男', verbose_name='性别')
 
+    vip_level = models.CharField(max_length=10, choices=VIP, default='非会员', verbose_name='会员星级')
     balance = models.IntegerField(verbose_name='余额', default=0)
 
     username = models.CharField(max_length=200, verbose_name='用户名')
