@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
-
+{% block content-header %}
+<div class="card-header">
+  <a href="{% url 'admin-detail' object.id %}" class="btn btn-tool">
+    <i class="fas fa-backward"></i>
+  </a>
+{% endblock content-header %}
 
 {% block title %}
 
