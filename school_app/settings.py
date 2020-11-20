@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'activity',
     'department',
     'category',
+    'commodity'
 ]
 
 MIDDLEWARE = [
