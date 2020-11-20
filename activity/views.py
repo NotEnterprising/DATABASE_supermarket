@@ -17,7 +17,9 @@ class ActivityListView(LoginRequiredMixin, ListView):
 class ActivityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Activity
     fields = '__all__'
+    template_name = 'activity/mgt_form.html'
     success_message = '新员工添加成功'
+    success_url = reverse_lazy('activity-list')
 
     def get_form(self):
         '''add date picker in forms'''
@@ -33,6 +35,7 @@ class ActivityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class ActivityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Activity
     fields = '__all__'
+    template_name = 'activity/mgt_form.html'
     success_message = "员工信息修改成功."
 
     def get_form(self):
