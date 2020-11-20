@@ -1,10 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content-header %}
+{% if object %}
 <div class="card-header">
   <a href="{% url 'staff-detail' object.id %}" class="btn btn-tool">
     <i class="fas fa-backward"></i>
   </a>
+
+    {% else %}
+
+<div class="card-header">
+  <a href="{% url 'staff-list' %}" class="btn btn-tool">
+    <i class="fas fa-backward"></i>
+  </a>
+{% endif %}
 {% endblock content-header %}
 
 {% block title %}
