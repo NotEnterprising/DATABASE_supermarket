@@ -152,7 +152,7 @@ LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/'
 
-AUTH_USER_MODEL = 'admin.Admin'
+# AUTH_USER_MODEL = 'admin.Admin'
 
 
 def hash_code(s, salt='mysite'):

@@ -8,7 +8,7 @@
 
 
 {% block breadcrumb %}
-  <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#modal1">
+  <a class="btn btn-primary" href="{% url 'activity-create' %}">
     <i class="fa fa-plus"></i>
     增加新活动
   </a>
@@ -20,10 +20,22 @@
     <div class="col-sm-12">
 
         <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th>活动名</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>活动描述</th>
+            <th>更新和删除</th>
+          </tr>
+        </thead>
           <tbody>
             {% for object in object_list %}
             <tr>
-              <td>{{ object }}</td>
+              <td>{{ object.name }}</td>
+              <td>{{ object.start_date }}</td>
+              <td>{{ object.end_date }}</td>
+              <td>{{ object.comment }}</td>
               <td><a href="{% url 'activity-update' object.id %}"><i
                     class="fa fa-edit"></i></a> <a
                   href="{% url 'activity-delete' object.id %}"><i
@@ -36,38 +48,6 @@
     </div>
   </div>
 
-
-  <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form action="{% url 'activity-create' %}" method="POST">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add new class</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-              {% csrf_token %}
-
-              {% for field in form %}
-                  <div class="form-group">
-                    {{field.label_tag}}
-                    {{ field|add_class:"form-control" }}
-                    {{field.help_text}}
-                    {{field.errors}}
-                  </div>
-              {% endfor %}
-          </div>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-            <button type="submit" class="btn btn-primary">保存</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
 
 {% endblock content %}
 
