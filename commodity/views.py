@@ -4,7 +4,6 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms import widgets, forms
 from django.urls import reverse_lazy
-
 from .models import Commodity
 
 
