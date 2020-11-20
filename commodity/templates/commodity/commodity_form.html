@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content-header %}
+<div class="card-header">
+  <a href="{% url 'commodity-detail' object.id %}" class="btn btn-tool">
+    <i class="fas fa-backward"></i>
+  </a>
+{% endblock content-header %}
+
+{% block title %}
+
+  {% if object %}
+    修改商品{{ object }}的信息
+  {% else %}
+    加入新商品
+  {% endif %}
+
+{% endblock title %}
+
+
+{% block content %}
+
+<form action="" method="POST">
+  {% csrf_token %}
+
+  {% include 'corecode/form_snippet.html' %}
+
+  {% if object %}
+    <input type="submit" class="btn btn-primary" value="修改">
+  {% else %}
+    <input type="submit" class="btn btn-primary" value="加入商品">
+  {% endif %}
+</form>
+
+
+{% endblock content %}
