@@ -152,6 +152,8 @@ LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/'
 
+AUTH_USER_MODEL = 'admin.Admin'
+
 
 def hash_code(s, salt='mysite'):
     h = hashlib.sha256()

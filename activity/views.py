@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms import widgets
 from django.urls import reverse_lazy
 
+from .forms import ActivityForm
 from .models import Activity
 
 
@@ -21,6 +22,11 @@ class ActivityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = '新员工添加成功'
     success_url = reverse_lazy('activity-list')
 
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['form'] = ActivityForm()
+    #     return context
+
     def get_form(self):
         '''add date picker in forms'''
         form = super(ActivityCreateView, self).get_form()
@@ -28,7 +34,6 @@ class ActivityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             attrs={'type': 'date'})
         form.fields['end_date'].widget = widgets.DateInput(
             attrs={'type': 'date'})
-        form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
         return form
 
 
@@ -36,19 +41,21 @@ class ActivityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Activity
     fields = '__all__'
     template_name = 'activity/mgt_form.html'
-    success_message = "员工信息修改成功."
+    success_message = "员工信息修改成功"
+    success_url = reverse_lazy('activity-list')
 
     def get_form(self):
         '''add date picker in forms'''
         form = super(ActivityUpdateView, self).get_form()
-        form.fields['start_date'].widget = widgets.DateInput(
-            attrs={'type': 'date'})
-        form.fields['end_date'].widget = widgets.DateInput(
-            attrs={'type': 'date'})
-        form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
+        # form.fields['start_date'].widget = widgets.DateInput(
+        #     attrs={'type': 'date'})
+        # form.fields['end_date'].widget = widgets.DateInput(
+        #     attrs={'type': 'date'})
         return form
 
 
 class ActivityDeleteView(LoginRequiredMixin, DeleteView):
     model = Activity
     success_url = reverse_lazy('activity-list')
+    template_name = 'activity/core_confirm_delete.html'
+    success_message = "员工信息删除成功"
