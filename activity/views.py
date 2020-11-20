@@ -14,12 +14,6 @@ class ActivityListView(LoginRequiredMixin, ListView):
     template_name = "activity/activity_list.html"
 
 
-class ActivityDetailView(LoginRequiredMixin, DetailView):
-    model = Activity
-    template_name = "activity/activity_detail.html"
-    context_object_name = 'activity'
-
-
 class ActivityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Activity
     fields = '__all__'

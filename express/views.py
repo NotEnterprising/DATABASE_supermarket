@@ -14,12 +14,6 @@ class ExpressListView(LoginRequiredMixin, ListView):
     template_name = "express/express_list.html"
 
 
-class ExpressDetailView(LoginRequiredMixin, DetailView):
-    model = Express
-    template_name = "express/express_detail.html"
-    context_object_name = 'express'
-
-
 class ExpressCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Express
     fields = '__all__'

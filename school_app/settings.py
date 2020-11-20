@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'supermarket',
     'express',
     'activity',
+    'department',
+    'category',
 ]
 
 MIDDLEWARE = [
