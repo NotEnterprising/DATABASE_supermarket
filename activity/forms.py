@@ -8,4 +8,4 @@ class ActivityForm(ModelForm):
 
     class Meta:
         model = Activity
-        fields = ['name', 'comment']
+        fields = ['name', 'start_date', 'end_date', 'comment']
