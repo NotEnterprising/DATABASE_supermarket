@@ -42,10 +42,6 @@ class ActivityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_form(self):
         '''add date picker in forms'''
         form = super(ActivityUpdateView, self).get_form()
-        # form.fields['start_date'].widget = widgets.DateInput(
-        #     attrs={'type': 'date'})
-        # form.fields['end_date'].widget = widgets.DateInput(
-        #     attrs={'type': 'date'})
         return form
 
 
