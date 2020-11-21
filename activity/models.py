@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 from django.utils import timezone
 
 from django.db import models
@@ -14,3 +16,8 @@ class Activity(models.Model):
 
     def __str__(self):
         return f'{self.name}'
+
+    def clean(self):
+        super().clean()
+        if not (self.start_date <= self.end_date):
+            raise ValidationError('活动结束时间先于活动起始时间')
