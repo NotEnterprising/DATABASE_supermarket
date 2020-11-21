@@ -17,7 +17,6 @@ from .forms import SiteConfigForm, AcademicTermForm, AcademicSessionForm, Studen
 def index_view(request):
     return render(request, 'index.html')
 
-
 @login_required
 def siteconfig_view(request):
     """ Site Config View """
