@@ -21,7 +21,7 @@ class ActivityListView(LoginRequiredMixin, ListView):
 
 
 class ActivityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    form_class = ActivityForm()
+    form_class = ActivityForm
     template_name = 'activity/mgt_form.html'
     success_url = reverse_lazy('activity-list')
     success_message = '新品类添加成功'
