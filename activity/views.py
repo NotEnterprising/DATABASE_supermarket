@@ -21,20 +21,15 @@ class ActivityListView(LoginRequiredMixin, ListView):
 
 
 class ActivityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = Activity
-    fields = '__all__'
+    form_class = ActivityForm()
     template_name = 'activity/mgt_form.html'
-    success_message = '新品类添加成功'
     success_url = reverse_lazy('activity-list')
+    success_message = '新品类添加成功'
 
-    def get_form(self):
-        '''add date picker in forms'''
-        form = super(ActivityCreateView, self).get_form()
-        form.fields['start_date'].widget = widgets.DateInput(
-            attrs={'type': 'date'})
-        form.fields['end_date'].widget = widgets.DateInput(
-            attrs={'type': 'date'})
-        return form
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ActivityForm()
+        return context
 
 
 class ActivityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
