@@ -6,13 +6,15 @@
   <a href="{% url 'customer-detail' object.id %}" class="btn btn-tool">
     <i class="fas fa-backward"></i>
   </a>
+</div>
 
-    {% else %}
+{% else %}
 
 <div class="card-header">
   <a href="{% url 'customer-list' %}" class="btn btn-tool">
     <i class="fas fa-backward"></i>
   </a>
+</div>
 {% endif %}
 {% endblock content-header %}
 
