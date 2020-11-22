@@ -7,5 +7,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\16011\git\Django-School-Management-System\db.sqlite3</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="db [2]" uuid="02a8ce04-6548-40c8-afff-20b3b4e3f696">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:D:\北航\大三上\数据库\DATABASE_supermarket\db.sqlite3</jdbc-url>
+    </data-source>
   </component>
 </project>

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+{% endblock title %}
+
+{% block content-header %}
+<div class="card-header">
+  <a href="{% url 'supermarket-detail' object.id %}" class="btn btn-tool">
+    <i class="fas fa-backward"></i>
+  </a>
+{% endblock content-header %}
+
+{% block content %}
+
+<form action="" method="POST">
+  {% csrf_token %}
+
+  <div class="alert">
+    <p>确定要删除"{{ object }}"的相关信息吗?</p>
+    <p>所有该超市的相关信息都会被删除</p>
+  </div>
+
+  <input type="submit" class="btn btn-primary" value="确认">
+
+</form>
+
+
+{% endblock content %}
