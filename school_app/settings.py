@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'commodity',
     'warehouse',
     'supplier',
+    'supermarketToactivity'
 ]
 
 MIDDLEWARE = [
