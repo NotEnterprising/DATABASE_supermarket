@@ -66,13 +66,15 @@ def all_results_view(request):
 
     for result in results:
         activitys = []
+        start_date = []
         for activity in results:
             if activity.supermarket == result.supermarket:
                 activitys.append(activity)
-
+                start_date.append(activity.activity.start_date)
         bulk[result.supermarket.id] = {
             "supermarket": result.supermarket,
             "activitys": activitys,
+            "start_date": start_date
         }
 
     context = {
