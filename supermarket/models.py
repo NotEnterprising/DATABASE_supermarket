@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.core.validators import RegexValidator
@@ -22,3 +23,7 @@ class Supermarket(models.Model):
     def get_absolute_url(self):
         return reverse('supermarket-detail', kwargs={'pk': self.pk})
 
+    def clean(self):
+        super().clean()
+        if not (self.start_time <= self.end_time):
+            raise ValidationError('结束营业时间先于起始营业时间')

@@ -23,7 +23,7 @@ class SupermarketDetailView(LoginRequiredMixin, DetailView):
 class SupermarketCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Supermarket
     fields = '__all__'
-    success_message = '新员工添加成功'
+    success_message = '新超市添加成功'
 
     def get_form(self):
         '''add date picker in forms'''
@@ -39,7 +39,7 @@ class SupermarketCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
 class SupermarketUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Supermarket
     fields = '__all__'
-    success_message = "员工信息修改成功."
+    success_message = "超市信息修改成功."
 
     def get_form(self):
         '''add date picker in forms'''
