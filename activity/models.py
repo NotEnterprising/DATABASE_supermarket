@@ -15,7 +15,7 @@ class Activity(models.Model):
     comment = models.CharField(max_length=200, verbose_name='活动描述')
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
     def clean(self):
         super().clean()

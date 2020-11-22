@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block title %}
+  选择你想要在所选超市中举办的活动
+{% endblock title %}
+
+
+{% block content %}
+
+
+  <p>你从前一个界面一共选择了 <b>{{ count }} 个超市</b> </p>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <div class="form-group row">
+      {{ form.session.errors }}
+      <label class="col-2" for="{{ form.activity.id_for_label }}">活动：</label>
+      <div class="col">{{ form.activity | add_class:"form-control" }}</div>
+    </div>
+
+
+    <input type="hidden" name="finish" value="True">
+    <input type="hidden" name="supermarkets" value="{{ supermarkets }}">
+
+    <input type="submit" class="btn btn-success" value="创建">
+  </form>
+
+{% endblock content %}

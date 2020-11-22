@@ -9,7 +9,7 @@ from .models import SupermarketToActivity
 
 class CreateSupermarketToActivity(forms.Form):
     supermarket = forms.ModelChoiceField(queryset=Supermarket.objects.all())
-    activity = forms.ModelChoiceField(queryset=Activity.objects.all(), widget=forms.CheckboxSelectMultiple)
+    activity = forms.ModelChoiceField(queryset=Activity.objects.all())
 
 
 EditSupermarketToActivity = modelformset_factory(SupermarketToActivity, fields=(), extra=0, can_delete=True)

@@ -17,7 +17,7 @@ def create_result(request):
         if 'finish' in request.POST:
             form = CreateSupermarketToActivity(request.POST)
             if form.is_valid():
-                activitys = form.cleaned_data['subjects']
+                activitys = form.cleaned_data['activitiys']
                 supermarkets = request.POST['supermarkets']
                 results = []
                 for supermarket in supermarkets.split(','):
@@ -39,11 +39,11 @@ def create_result(request):
         if id_list:
             form = CreateSupermarketToActivity()
             supermarket_list = ','.join(id_list)
-            return render(request, 'create_result_page2.html',
+            return render(request, 'create_supermarketToactivity_page2.html',
                           {"supermarkets": supermarket_list, "form": form, "count": len(id_list)})
         else:
             messages.warning(request, "You didnt select any student.")
-    return render(request, 'create_result.html', {"supermarkets": supermarkets})
+    return render(request, 'create_supermarketToactivity.html', {"supermarkets": supermarkets})
 
 
 @login_required
@@ -57,7 +57,7 @@ def edit_results(request):
     else:
         results = SupermarketToActivity.objects.all()
         form = EditSupermarketToActivity(queryset=results)
-    return render(request, 'edit_results.html', {"formset": form})
+    return render(request, 'edit_supermarketToactivity.html', {"formset": form})
 
 
 @login_required
@@ -79,4 +79,4 @@ def all_results_view(request):
     context = {
         "results": bulk
     }
-    return render(request, 'all_results.html', context)
+    return render(request, 'all_supermarketToactivity.html', context)
