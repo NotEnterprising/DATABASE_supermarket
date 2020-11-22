@@ -24,23 +24,22 @@ class CategoryDetailView(LoginRequiredMixin, DetailView):
 class CategoryCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Category
     fields = '__all__'
-    #template_name = "category/category_form.html"
+    template_name = "category/category_form.html"
     success_message = '新品类添加成功'
+    success_url = reverse_lazy('category-list')
 
     def get_form(self):
         '''add date picker in forms'''
         form = super(CategoryCreateView, self).get_form()
         return form
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['form'] = CategoryForm()
-    #     return context
 
 
 class CategoryUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Category
     fields = '__all__'
+    template_name = "category/category_form.html"
     success_message = "品类信息修改成功."
+    success_url = reverse_lazy('category-list')
 
     def get_form(self):
         '''add date picker in forms'''

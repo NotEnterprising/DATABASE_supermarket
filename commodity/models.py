@@ -11,7 +11,6 @@ class Commodity(models.Model):
 
     production_date = models.DateField(default=timezone.now, verbose_name='生产日期')
 
-
     def __str__(self):
         return f'{self.name}'
 
