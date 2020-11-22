@@ -12,4 +12,4 @@ class CreateSupermarketToActivity(forms.Form):
     activity = forms.ModelChoiceField(queryset=Activity.objects.all(), widget=forms.CheckboxSelectMultiple)
 
 
-EditSupermarketToActivity = modelformset_factory(SupermarketToActivity, extra=0, can_delete=True)
+EditSupermarketToActivity = modelformset_factory(SupermarketToActivity, fields=(), extra=0, can_delete=True)
