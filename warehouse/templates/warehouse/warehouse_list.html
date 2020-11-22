@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}超市列表{% endblock title %}
+{% block title %}仓库列表{% endblock title %}
 
 {% block breadcrumb %}
-<a class="btn btn-primary" href="{% url 'supermarket-create' %}"><i
-    class="fas fa-plus"></i> 新的超市</a>
+<a class="btn btn-primary" href="{% url 'warehouse-create' %}"><i
+    class="fas fa-plus"></i> 新的仓库</a>
 {% endblock breadcrumb %}
 
 {% block content %}
@@ -12,29 +12,26 @@
     <thead class="thead-light">
       <tr>
         <th>序号</th>
-        <th>超市名称</th>
-        <th>开始营业时间</th>
-        <th>结束营业时间</th>
+        <th>仓库名称</th>
         <th>电话号码</th>
-        <th>超市地址</th>
+        <th>仓库地址</th>
       </tr>
     </thead>
     <tbody>
 
-      {% for supermarket in supermarket_list %}
-        <tr class='clickable-row' data-href="{% url 'supermarket-detail' supermarket.id %}">
+      {% for warehouse in warehouse_list %}
+        <tr class='clickable-row' data-href="{% url 'warehouse-detail' warehouse.id %}">
           <td>{{ forloop.counter}}</td>
-          <td>{{ supermarket.name}}</td>
-          <td>{{ supermarket.start_time}}</td>
-          <td>{{ supermarket.end_time}}</td>
-          <td>{{ supermarket.mobile_number}}</td>
-          <td>{{ supermarket.address}}</td>
+          <td>{{ warehouse.name}}</td>
+          <td>{{ warehouse.mobile_number}}</td>
+          <td>{{ warehouse.address}}</td>
         </tr>
       {% endfor %}
 
     </tbody>
   </table>
 {% endblock content %}
+
 
 {% block morejs %}
 <script>
