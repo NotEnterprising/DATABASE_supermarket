@@ -8,7 +8,6 @@ from .models import SupermarketToActivity
 
 
 class CreateSupermarketToActivity(forms.Form):
-    supermarket = forms.ModelChoiceField(queryset=Supermarket.objects.all())
     activity = forms.ModelChoiceField(queryset=Activity.objects.all())
 
 

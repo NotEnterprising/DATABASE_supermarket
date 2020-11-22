@@ -12,25 +12,24 @@ from .forms import CreateSupermarketToActivity, EditSupermarketToActivity
 def create_result(request):
     supermarkets = Supermarket.objects.all()
     if request.method == 'POST':
-
         # after visiting the second page
         if 'finish' in request.POST:
             form = CreateSupermarketToActivity(request.POST)
+            print(form.is_valid())
             if form.is_valid():
-                activitys = form.cleaned_data['activitiys']
+                activity = form.cleaned_data['activity']
                 supermarkets = request.POST['supermarkets']
                 results = []
                 for supermarket in supermarkets.split(','):
                     sup = Supermarket.objects.get(pk=supermarket)
-                    for activity in activitys:
-                        check = SupermarketToActivity.objects.filter(supermarket=sup, activity=activity).first()
-                        if not check:
-                            results.append(
-                                SupermarketToActivity(
-                                    activity=activity,
-                                    supermarket=sup
-                                )
+                    check = SupermarketToActivity.objects.filter(supermarket=sup, activity=activity).first()
+                    if not check:
+                        results.append(
+                            SupermarketToActivity(
+                                activity=activity,
+                                supermarket=sup
                             )
+                        )
                 SupermarketToActivity.objects.bulk_create(results)
                 return redirect('edit-SupermarketToActivity')
 
