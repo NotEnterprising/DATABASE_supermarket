@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'category',
     'commodity',
     'warehouse',
+    'supplier',
 ]
 
 MIDDLEWARE = [
