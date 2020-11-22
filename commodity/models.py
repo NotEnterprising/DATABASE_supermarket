@@ -11,6 +11,8 @@ class Commodity(models.Model):
 
     production_date = models.DateField(default=timezone.now, verbose_name='生产日期')
 
+    count = models.IntegerField(default=1, verbose_name='商品价格', validators=[MinValueValidator(1)])
+
     def __str__(self):
         return f'{self.name}'
 

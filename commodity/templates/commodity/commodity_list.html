@@ -14,6 +14,7 @@
         <th>序号</th>
         <th>商品名称</th>
         <th>商品价格</th>
+        <th>商品数量</th>
         <th>生产日期</th>
       </tr>
     </thead>
@@ -24,6 +25,7 @@
           <td>{{ forloop.counter}}</td>
           <td>{{ commodity.name}}</td>
           <td>{{ commodity.price }}</td>
+          <td>{{ commodity.count }}</td>
           <td>{{ commodity.production_date }}</td>
         </tr>
       {% endfor %}
