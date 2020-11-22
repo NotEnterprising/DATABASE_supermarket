@@ -5,43 +5,31 @@
   {% for key, result in results.items %}
     <div class="card">
       <div class="card-header">
-        {{result.student}}
+        {{result.supermarket}}
       </div>
       <div class="card-body">
         <table class="table table-bordered table-sm">
           <thead class="thead-light">
             <tr>
-              <th></th>
-              <th>Subject</th>
-              <th>Test Score</th>
-              <th>Exam Score</th>
-              <th>Total Score</th>
-              <th>Grade</th>
+              <th>序号</th>
+              <th>活动名称</th>
+              <th>活动开始时间</th>
+              <th>活动结束时间</th>
+              <th>活动描述</th>
             </tr>
           </thead>
-          <tbody>
-            {% for subject in result.subjects %}
+            <tbody>
+            {% for activity in result.activitys %}
               <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ subject.subject }}</td>
-                <td>{{ subject.test_score }}</td>
-                <td>{{ subject.exam_score }}</td>
-                <td>{{ subject.total_score }}</td>
-                <td>{{ subject.grade }}</td>
+                <td>{{ activity.name }}</td>
+                <td>{{ activity.start_date }}</td>
+                <td>{{ activity.end_date }}</td>
+                <td>{{ activity.comment }}</td>
               </tr>
             {% endfor %}
           </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="2"></td>
-              <td>{{ result.test_total }}</td>
-              <td>{{ result.exam_total }}</td>
-              <td>{{ result.total_total }}</td>
-              <td></td>
-            </tr>
-          </tfoot>
         </table>
-
 
 
 

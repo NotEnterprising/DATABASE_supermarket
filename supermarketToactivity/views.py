@@ -15,7 +15,6 @@ def create_result(request):
         # after visiting the second page
         if 'finish' in request.POST:
             form = CreateSupermarketToActivity(request.POST)
-            print(form.is_valid())
             if form.is_valid():
                 activity = form.cleaned_data['activity']
                 supermarkets = request.POST['supermarkets']
