@@ -73,5 +73,42 @@
     </div>
 
 
+        <div class="card">
+          <div class="card-header">
+            {{object.name}}的活动
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered table-sm">
+              <thead class="thead-light">
+                <tr>
+                  <th>序号</th>
+                  <th>活动名称</th>
+                  <th>活动开始时间</th>
+                  <th>活动结束时间</th>
+                  <th>活动描述</th>
+                </tr>
+              </thead>
+                <tbody>
+                {% for key, result in results.items %}
+                    {% ifequal result.supermarket.id object.id%}
+                        {% for activity in result.activitys %}
+                          <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ activity.name }}</td>
+                            <td>{{ activity.start_date }}</td>
+                            <td>{{ activity.end_date }}</td>
+                            <td>{{ activity.comment }}</td>
+                          </tr>
+                        {% endfor %}
+                    {% endifequal %}
+                {% endfor %}
+              </tbody>
+            </table>
+
+
+
+          </div>
+        </div>
+
 
 {% endblock content %}
