@@ -19,12 +19,12 @@
     </thead>
     <tbody>
 
-      {% for category in category_list %}
+      {% for key,value in categorys %}
         <tr class='clickable-row' data-href="{% url 'category-detail' category.id %}">
           <td>{{ forloop.counter}}</td>
-          <td>{{ category.name}}</td>
-          <td>{{ category.commodityCount}}</td>
-          <td>{{ category.area}}</td>
+          <td>{{ value.category }}</td>
+          <td>{{ value.commodityCount}}</td>
+          <td>{{ value.area}}</td>
         </tr>
       {% endfor %}
 
