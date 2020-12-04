@@ -2,9 +2,16 @@
 {% load widget_tweaks %}
 
 {% block title %}
-更新活动归属
+删除活动
 {% endblock title %}
 
+{% block content-header %}
+    <div class="card-header">
+        <a href="{% url 'view-SupermarketToActivity' %}" class="btn btn-tool">
+            <i class="fas fa-backward"></i>
+        </a>
+    </div>
+{% endblock content-header %}
 
 {% block content %}
 <form method="POST">

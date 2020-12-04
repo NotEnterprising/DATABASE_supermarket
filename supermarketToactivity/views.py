@@ -30,7 +30,7 @@ def create_result(request):
                             )
                         )
                 SupermarketToActivity.objects.bulk_create(results)
-                return redirect('edit-SupermarketToActivity')
+                return redirect('view-SupermarketToActivity')
 
         # after choosing students
         id_list = request.POST.getlist('supermarkets')

@@ -1,5 +1,14 @@
 {% extends 'base.html' %}
 
+{% block title %}活动总览{% endblock title %}
+
+{% block breadcrumb %}
+    <a class="btn btn-primary" href="{% url 'create-SupermarketToActivity' %}"><i
+    class="fas fa-plus"></i> 创建活动</a>
+    <a class="btn btn-primary" href="{% url 'edit-SupermarketToActivity' %}"><i
+    class="fas fa-plus"></i> 删除活动</a>
+{% endblock breadcrumb %}
+
 {% block fullcard %}
 
   {% for key, result in results.items %}
