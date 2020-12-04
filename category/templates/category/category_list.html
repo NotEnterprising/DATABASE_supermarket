@@ -13,7 +13,7 @@
       <tr>
         <th>序号</th>
         <th>品类名称</th>
-        <th>员工人数</th>
+        <th>包含商品种数</th>
         <th>区域</th>
       </tr>
     </thead>
@@ -23,7 +23,7 @@
         <tr class='clickable-row' data-href="{% url 'category-detail' category.id %}">
           <td>{{ forloop.counter}}</td>
           <td>{{ category.name}}</td>
-          <td>{{ category.staff_num}}</td>
+          <td>{{ category.commodityCount}}</td>
           <td>{{ category.area}}</td>
         </tr>
       {% endfor %}

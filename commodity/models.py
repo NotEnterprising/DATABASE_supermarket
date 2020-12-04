@@ -15,7 +15,7 @@ class Commodity(models.Model):
 
     count = models.IntegerField(default=1, verbose_name='商品数量', validators=[MinValueValidator(1)])
 
-    category = models.ForeignKey(Category, verbose_name='所属品类', on_delete=models.CASCADE, blank=True, null=True)
+    category = models.ForeignKey(Category, verbose_name='所属品类', on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
         return f'{self.name}'
