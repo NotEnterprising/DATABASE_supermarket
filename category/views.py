@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms import widgets, forms
@@ -9,26 +10,41 @@ from .forms import CategoryForm
 from .models import Category
 
 
-class CategoryListView(LoginRequiredMixin, ListView):
-    model = Category
-    context_object_name = 'category_list'
-    template_name = "category/category_list.html"
+def categorylist(request):
+    categorys = Category.objects.all()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        categorys = Category.objects.all()
-
-        bulk = {}
-        for category in categorys:
-            bulk[category.id] = {
-                "category": category,
-                "commodityCount": category.commodity_set.all().count()
-            }
-
-        context = {
-            "categorys": bulk
+    bulk = {}
+    for category in categorys:
+        bulk[category.id] = {
+            "category": category,
+            "commodityCount": category.commodity_set.all().count()
         }
-        return context
+
+    context = {
+        "categorys": bulk
+    }
+    return render(request, 'category/category_list.html', context)
+#
+#
+# class CategoryListView(LoginRequiredMixin, ListView):
+#     model = Category
+#     context_object_name = 'category_list'
+#     template_name = "category/category_list.html"
+#
+#     def get_context_data(self, **kwargs):
+#         categorys = Category.objects.all()
+#
+#         bulk = {}
+#         for category in categorys:
+#             bulk[category.id] = {
+#                 "category": category,
+#                 "commodityCount": category.commodity_set.all().count()
+#             }
+#
+#         context = {
+#             "categorys": bulk
+#         }
+#         return context
 
 
 class CategoryDetailView(LoginRequiredMixin, DetailView):
