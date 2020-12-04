@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms import widgets, forms
 from django.urls import reverse_lazy
 
+from supermarketToactivity.models import SupermarketToActivity
 from .models import Supermarket
 
 
@@ -18,6 +19,22 @@ class SupermarketDetailView(LoginRequiredMixin, DetailView):
     model = Supermarket
     template_name = "supermarket/supermarket_detail.html"
     context_object_name = 'supermarket'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        results = SupermarketToActivity.objects.all()
+        bulk = {}
+        for result in results:
+            activitys = []
+            for activity in results:
+                if activity.supermarket == result.supermarket:
+                    activitys.append(activity.activity)
+            bulk[result.supermarket.id] = {
+                "supermarket": result.supermarket,
+                "activitys": activitys,
+            }
+        context['results'] = bulk
+        return context
 
 
 class SupermarketCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
