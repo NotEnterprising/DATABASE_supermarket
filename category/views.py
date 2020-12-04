@@ -10,41 +10,24 @@ from .forms import CategoryForm
 from .models import Category
 
 
-def categorylist(request):
-    categorys = Category.objects.all()
+class CategoryListView(LoginRequiredMixin, ListView):
+    model = Category
+    template_name = "category/category_list.html"
 
-    bulk = {}
-    for category in categorys:
-        bulk[category.id] = {
-            "category": category,
-            "commodityCount": category.commodity_set.all().count()
+    def get_context_data(self, **kwargs):
+        categorys = Category.objects.all()
+
+        bulk = {}
+        for category in categorys:
+            bulk[category.id] = {
+                "category": category,
+                "commodityCount": category.commodity_set.all().count()
+            }
+
+        context = {
+            "categorys": bulk
         }
-
-    context = {
-        "categorys": bulk
-    }
-    return render(request, 'category/category_list.html', context)
-#
-#
-# class CategoryListView(LoginRequiredMixin, ListView):
-#     model = Category
-#     context_object_name = 'category_list'
-#     template_name = "category/category_list.html"
-#
-#     def get_context_data(self, **kwargs):
-#         categorys = Category.objects.all()
-#
-#         bulk = {}
-#         for category in categorys:
-#             bulk[category.id] = {
-#                 "category": category,
-#                 "commodityCount": category.commodity_set.all().count()
-#             }
-#
-#         context = {
-#             "categorys": bulk
-#         }
-#         return context
+        return context
 
 
 class CategoryDetailView(LoginRequiredMixin, DetailView):
@@ -56,7 +39,9 @@ class CategoryDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         category = Category.objects.get(id=self.kwargs['pk'])
         commoditys = category.commodity_set.all()
+        num = category.commodity_set.all().count()
         context['commoditys'] = commoditys
+        context['num'] = num
         return context
 
 
