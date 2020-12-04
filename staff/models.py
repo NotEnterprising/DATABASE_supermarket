@@ -24,7 +24,6 @@ class Staff(models.Model):
 
     address = models.TextField(blank=True, verbose_name='住址')
 
-    supermarket = models.ForeignKey(Supermarket, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.name}'
