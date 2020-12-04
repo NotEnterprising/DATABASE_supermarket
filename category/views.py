@@ -14,24 +14,46 @@ class CategoryListView(LoginRequiredMixin, ListView):
     context_object_name = 'category_list'
     template_name = "category/category_list.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categorys = Category.objects.all()
+
+        bulk = {}
+        for category in categorys:
+            bulk[category.id] = {
+                "category": category,
+                "commodityCount": category.commodity_set.all().count()
+            }
+
+        context = {
+            "categorys": bulk
+        }
+        return context
+
 
 class CategoryDetailView(LoginRequiredMixin, DetailView):
     model = Category
     template_name = "category/category_detail.html"
     context_object_name = 'category'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = Category.objects.get(id=self.kwargs['pk'])
+        commoditys = category.commodity_set.all()
+        context['commoditys'] = commoditys
+        return context
+
 
 class CategoryCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = Category
-    fields = '__all__'
+    form_class = CategoryForm
     template_name = "category/category_form.html"
     success_message = '新品类添加成功'
     success_url = reverse_lazy('category-list')
 
-    def get_form(self):
-        '''add date picker in forms'''
-        form = super(CategoryCreateView, self).get_form()
-        return form
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CategoryForm()
+        return context
 
 
 class CategoryUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
