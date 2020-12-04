@@ -3,55 +3,55 @@
 
 
 {% block content-header %}
-<div class="card-header">
-  <a href="{% url 'category-list' %}" class="btn btn-tool">
-    <i class="fas fa-backward"></i>
-  </a>
-  <div class="card-tools">
-    <a href="{% url 'category-update' object.id %}" class="btn btn-tool">
-      <i class="fas fa-edit"></i>
-    </a>
-    <a href="{% url 'category-delete' object.id %}" class="btn btn-tool">
-      <i class="fas fa-times"></i>
-    </a>
-  </div>
-</div>
+    <div class="card-header">
+        <a href="{% url 'category-list' %}" class="btn btn-tool">
+            <i class="fas fa-backward"></i>
+        </a>
+        <div class="card-tools">
+            <a href="{% url 'category-update' object.id %}" class="btn btn-tool">
+                <i class="fas fa-edit"></i>
+            </a>
+            <a href="{% url 'category-delete' object.id %}" class="btn btn-tool">
+                <i class="fas fa-times"></i>
+            </a>
+        </div>
+    </div>
 {% endblock content-header %}
 
 {% block content %}
     <div class="row">
-      <div class="col-sm-8">
-        <div>
+        <div class="col-sm-8">
+            <div>
 
-          <div class="form-group border-bottom row">
-            <label class="col">
-               品类名称
-            </label>
-            <div class="col">
-              {{ object.name }}
-            </div>
-          </div>
+                <div class="form-group border-bottom row">
+                    <label class="col">
+                        品类名称
+                    </label>
+                    <div class="col">
+                        {{ object.name }}
+                    </div>
+                </div>
 
-          <div class="form-group border-bottom row">
-            <label class="col">
-              职工人数
-            </label>
-            <div class="col">
-              {{ object.stuff_num }}
-            </div>
-          </div>
+                <div class="form-group border-bottom row">
+                    <label class="col">
+                        职工人数
+                    </label>
+                    <div class="col">
+                        {{ object.staff_num }}
+                    </div>
+                </div>
 
-            <div class="form-group border-bottom row">
-            <label class="col">
-              区域
-            </label>
-            <div class="col">
-              {{ object.area }}
+                <div class="form-group border-bottom row">
+                    <label class="col">
+                        区域
+                    </label>
+                    <div class="col">
+                        {{ object.area }}
+                    </div>
+                </div>
             </div>
-          </div>
+
         </div>
-
-      </div>
     </div>
 
 
