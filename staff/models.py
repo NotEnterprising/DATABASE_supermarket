@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.urls import reverse
 from django.core.validators import RegexValidator
 from school_app.settings import hash_code
+from supermarket.models import Supermarket
 
 
 class Staff(models.Model):
@@ -22,6 +23,8 @@ class Staff(models.Model):
     mobile_number = models.CharField(validators=[mobile_num_regex], max_length=13, blank=True, verbose_name='电话号码')
 
     address = models.TextField(blank=True, verbose_name='住址')
+
+    supermarket = models.ForeignKey(Supermarket, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.name}'
