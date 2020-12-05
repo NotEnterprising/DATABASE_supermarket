@@ -53,6 +53,8 @@ def register(request):
             staff.save()
             messages.success(request, '新员工添加成功')
             return redirect('staff-list')
+        form.fields['entry_date'].widget = widgets.DateInput(
+            attrs={'type': 'date'})
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
     else:
         form = StaffRegisterForm()
