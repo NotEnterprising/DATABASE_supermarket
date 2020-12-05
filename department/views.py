@@ -14,15 +14,8 @@ class DepartmentListView(LoginRequiredMixin, ListView):
     context_object_name = 'department_list'
     template_name = "department/department_list.html"
 
-
-class DepartmentDetailView(LoginRequiredMixin, DetailView):
-    model = Department
-    template_name = "department/department_detail.html"
-    context_object_name = 'department'
-
     def get_context_data(self, **kwargs):
         departments = Department.objects.all()
-
         bulk = {}
         for department in departments:
             bulk[department.id] = {
@@ -33,6 +26,21 @@ class DepartmentDetailView(LoginRequiredMixin, DetailView):
         context = {
             "departments": bulk
         }
+        return context
+
+
+class DepartmentDetailView(LoginRequiredMixin, DetailView):
+    model = Department
+    template_name = "department/department_detail.html"
+    context_object_name = 'department'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        department = Department.objects.get(id=self.kwargs['pk'])
+        staffs = department.staff_set.all()
+        num = department.staff_set.all().count()
+        context['staffs'] = staffs
+        context['num'] = num
         return context
 
 
