@@ -87,6 +87,7 @@ class StaffUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             staff.mobile_number = request.POST.get('mobile_number')
             staff.address = request.POST.get('address')
             staff.entry_date = request.POST.get('entry_date')
+            staff.department_id = request.POST.getlist("department")[0]
             staff.save()
             user.username = request.POST.get('用户名')
             user.set_password(request.POST.get('password1'))
@@ -101,4 +102,6 @@ class StaffUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         staff = Staff.objects.get(user_id=self.kwargs['pk'])
         form = self.form_class(instance=staff)
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
+        form.fields['entry_date'].widget = widgets.DateInput(
+            attrs={'type': 'date'})
         return render(request, 'staff/staff_form.html', {'form': form})
