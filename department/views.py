@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms import widgets, forms
 from django.urls import reverse_lazy
 
+from staff.models import Staff
 from .models import Department
 
 
@@ -18,6 +19,21 @@ class DepartmentDetailView(LoginRequiredMixin, DetailView):
     model = Department
     template_name = "department/department_detail.html"
     context_object_name = 'department'
+
+    def get_context_data(self, **kwargs):
+        departments = Department.objects.all()
+
+        bulk = {}
+        for department in departments:
+            bulk[department.id] = {
+                "department": department,
+                "staffCount": department.staff_set.all().count()
+            }
+
+        context = {
+            "departments": bulk
+        }
+        return context
 
 
 class DepartmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):

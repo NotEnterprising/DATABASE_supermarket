@@ -18,4 +18,4 @@ class StaffRegisterForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = Staff
-        fields = ['name', 'gender', 'entry_date', 'mobile_number', 'address', '用户名']
+        fields = ['name', 'gender', 'entry_date', 'department', 'mobile_number', 'address', '用户名']

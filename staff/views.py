@@ -8,6 +8,7 @@ from django.forms import widgets, forms
 from django.urls import reverse_lazy
 
 from admin.models import User
+from department.models import Department
 from .forms import StaffRegisterForm
 from .models import Staff
 
@@ -43,11 +44,11 @@ def register(request):
         if form.is_valid():
             user = User.objects.create_user(username=form.cleaned_data['用户名'], password=form.cleaned_data['password1'],
                                             is_staff=True)
-
             staff = Staff.objects.create(name=form.cleaned_data['name'], gender=form.cleaned_data['gender'],
                                          mobile_number=form.cleaned_data['mobile_number'],
                                          address=form.cleaned_data['address'],
-                                         entry_date=form.cleaned_data['entry_date'], user_id=user.id)
+                                         entry_date=form.cleaned_data['entry_date'], user_id=user.id,
+                                         department_id=request.POST.getlist("department")[0])
             staff.save()
             messages.success(request, '新员工添加成功')
             return redirect('staff-list')
