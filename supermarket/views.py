@@ -44,7 +44,7 @@ class SupermarketDetailView(LoginRequiredMixin, DetailView):
             for express in resultsOfExpress:
                 if express.supermarket == result.supermarket:
                     expresses.append(express.express)
-            bulk[result.supermarket.id] = {
+            bulk1[result.supermarket.id] = {
                 "supermarket": result.supermarket,
                 "expresses": expresses,
             }
