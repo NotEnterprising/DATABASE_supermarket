@@ -58,7 +58,7 @@ def register(request):
         form.fields['entry_date'].widget = widgets.DateInput(
             attrs={'type': 'date'})
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
-    return render(request, 'staff/staff_form.html', context={'form': form})
+    return render(request, 'staff/staff_form_new.html', context={'form': form})
 
 
 class StaffUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
