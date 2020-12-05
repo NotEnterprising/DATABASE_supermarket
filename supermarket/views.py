@@ -6,6 +6,7 @@ from django.forms import widgets, forms
 from django.urls import reverse_lazy
 
 from supermarketToactivity.models import SupermarketToActivity
+from supermarketToexpress.models import SupermarketToExpress
 from .models import Supermarket
 
 
@@ -25,7 +26,6 @@ class SupermarketDetailView(LoginRequiredMixin, DetailView):
         results = SupermarketToActivity.objects.all()
         supermarket = Supermarket.objects.get(id=self.kwargs['pk'])
         departments = supermarket.department_set.all()
-
         bulk = {}
         for result in results:
             activitys = []
@@ -36,7 +36,20 @@ class SupermarketDetailView(LoginRequiredMixin, DetailView):
                 "supermarket": result.supermarket,
                 "activitys": activitys,
             }
+
+        resultsOfExpress = SupermarketToExpress.objects.all()
+        bulk1 = {}
+        for result in resultsOfExpress:
+            expresses = []
+            for express in resultsOfExpress:
+                if express.supermarket == result.supermarket:
+                    expresses.append(express.express)
+            bulk[result.supermarket.id] = {
+                "supermarket": result.supermarket,
+                "activitys": expresses,
+            }
         context['results'] = bulk
+        context['resultsOfExpress'] = bulk1
         context['departments'] = departments
         return context
 

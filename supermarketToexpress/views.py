@@ -4,8 +4,8 @@ from django.shortcuts import render, HttpResponseRedirect, redirect
 
 from students.models import Student
 from supermarket.models import Supermarket
-from .models import SupermarketToActivity
-from .forms import CreateSupermarketToActivity, EditSupermarketToActivity
+from .models import SupermarketToExpress
+from .forms import CreateSupermarketToExpress, EditSupermarketToExpress
 
 
 @login_required
@@ -14,65 +14,65 @@ def create_result(request):
     if request.method == 'POST':
         # after visiting the second page
         if 'finish' in request.POST:
-            form = CreateSupermarketToActivity(request.POST)
+            form = CreateSupermarketToExpress(request.POST)
             if form.is_valid():
-                activity = form.cleaned_data['activity']
+                express = form.cleaned_data['express']
                 supermarkets = request.POST['supermarkets']
                 results = []
                 for supermarket in supermarkets.split(','):
                     sup = Supermarket.objects.get(pk=supermarket)
-                    check = SupermarketToActivity.objects.filter(supermarket=sup, activity=activity).first()
+                    check = SupermarketToExpress.objects.filter(supermarket=sup, express=express).first()
                     if not check:
                         results.append(
-                            SupermarketToActivity(
-                                activity=activity,
+                            SupermarketToExpress(
+                                express=express,
                                 supermarket=sup
                             )
                         )
-                SupermarketToActivity.objects.bulk_create(results)
-                return redirect('view-SupermarketToActivity')
+                SupermarketToExpress.objects.bulk_create(results)
+                return redirect('view-SupermarketToExpress')
 
         # after choosing students
         id_list = request.POST.getlist('supermarkets')
         if id_list:
-            form = CreateSupermarketToActivity()
+            form = CreateSupermarketToExpress()
             supermarket_list = ','.join(id_list)
-            return render(request, 'create_supermarketToactivity_page2.html',
+            return render(request, 'create_supermarketToexpress_page2.html',
                           {"supermarkets": supermarket_list, "form": form, "count": len(id_list)})
         else:
             messages.warning(request, "你没有选择任何超市")
-    return render(request, 'create_supermarketToactivity.html', {"supermarkets": supermarkets})
+    return render(request, 'create_supermarketToexpress.html', {"supermarkets": supermarkets})
 
 
 @login_required
 def edit_results(request):
     if request.method == 'POST':
-        form = EditSupermarketToActivity(request.POST)
+        form = EditSupermarketToExpress(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, '删除成功')
-            return redirect('edit-SupermarketToActivity')
+            return redirect('edit-SupermarketToExpress')
     else:
-        results = SupermarketToActivity.objects.all()
-        form = EditSupermarketToActivity(queryset=results)
-    return render(request, 'edit_supermarketToactivity.html', {"formset": form})
+        results = SupermarketToExpress.objects.all()
+        form = EditSupermarketToExpress(queryset=results)
+    return render(request, 'edit_supermarketToexpress.html', {"formset": form})
 
 
 @login_required
 def all_results_view(request):
-    results = SupermarketToActivity.objects.all()
+    results = SupermarketToExpress.objects.all()
     bulk = {}
 
     for result in results:
-        activitys = []
-        for activity in results:
-            if activity.supermarket == result.supermarket:
-                activitys.append(activity.activity)
+        expresss = []
+        for express in results:
+            if express.supermarket == result.supermarket:
+                expresss.append(express.express)
         bulk[result.supermarket.id] = {
             "supermarket": result.supermarket,
-            "activitys": activitys,
+            "expresss": expresss,
         }
     context = {
         "results": bulk
     }
-    return render(request, 'all_supermarketToactivity.html', context)
+    return render(request, 'all_supermarketToexpress.html', context)
