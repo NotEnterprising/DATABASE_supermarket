@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+删除活动
+{% endblock title %}
+
+{% block content-header %}
+    <div class="card-header">
+        <a href="{% url 'view-SupermarketToExpress' %}" class="btn btn-tool">
+            <i class="fas fa-backward"></i>
+        </a>
+    </div>
+{% endblock content-header %}
+
+{% block content %}
+<form method="POST">
+  {% csrf_token %}
+  {{ formset.management_form}}
+
+  <table id="studenttable" class="table table-sm">
+    <thead>
+      <tr>
+        <th></th>
+        <th>超市名称</th>
+        <th>物流名称</th>
+        <th>删除</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for form in formset %}
+      {{ form.id}}
+        <tr>
+          <td>{{forloop.counter }}</td>
+          <td>{{form.instance.supermarket }}</td>
+          <td>{{form.instance.express }}</td>
+          <td>{{form.DELETE}}</td>
+
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <input type="submit" class="btn btn-success" value="保存">
+  </form>
+
+{% endblock content %}

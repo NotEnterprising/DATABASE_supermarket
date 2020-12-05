@@ -107,6 +107,40 @@
         </div>
     </div>
 
+    <div class="card">
+        <div class="card-header">
+            {{ object.name }}的物流
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                <tr>
+                    <th>序号</th>
+                    <th>物流名称</th>
+                    <th>电话号码</th>
+                    <th>地址</th>
+                    <th>物流描述</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key, result in resultsOfExpress.items %}
+                    {% ifequal result.supermarket.id object.id %}
+                        {% for activity in result.expresses %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ activity.name }}</td>
+                                <td>{{ activity.mobile_number }}</td>
+                                <td>{{ activity.address }}</td>
+                                <td>{{ activity.comment }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endifequal %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
     <div class="card">
         <div class="card-header">
