@@ -70,7 +70,7 @@ def all_results_view(request):
                 expresss.append(express.express)
         bulk[result.supermarket.id] = {
             "supermarket": result.supermarket,
-            "expresss": expresss,
+            "expresses": expresss,
         }
     context = {
         "results": bulk
