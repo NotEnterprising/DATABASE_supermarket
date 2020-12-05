@@ -55,6 +55,8 @@ def register(request):
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
     else:
         form = StaffRegisterForm()
+        form.fields['entry_date'].widget = widgets.DateInput(
+            attrs={'type': 'date'})
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
     return render(request, 'staff/staff_form.html', context={'form': form})
 
