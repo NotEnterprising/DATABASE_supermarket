@@ -3,57 +3,97 @@
 
 
 {% block content-header %}
-<div class="card-header">
-  <a href="{% url 'department-list' %}" class="btn btn-tool">
-    <i class="fas fa-backward"></i>
-  </a>
-  <div class="card-tools">
-    <a href="{% url 'department-update' object.id %}" class="btn btn-tool">
-      <i class="fas fa-edit"></i>
-    </a>
-    <a href="{% url 'department-delete' object.id %}" class="btn btn-tool">
-      <i class="fas fa-times"></i>
-    </a>
-  </div>
-</div>
+    <div class="card-header">
+        <a href="{% url 'department-list' %}" class="btn btn-tool">
+            <i class="fas fa-backward"></i>
+        </a>
+        <div class="card-tools">
+            <a href="{% url 'department-update' object.id %}" class="btn btn-tool">
+                <i class="fas fa-edit"></i>
+            </a>
+            <a href="{% url 'department-delete' object.id %}" class="btn btn-tool">
+                <i class="fas fa-times"></i>
+            </a>
+        </div>
+    </div>
 {% endblock content-header %}
 
 {% block content %}
     <div class="row">
-      <div class="col-sm-8">
-        <div>
+        <div class="col-sm-8">
+            <div>
 
-          <div class="form-group border-bottom row">
-            <label class="col">
-               部门名称
-            </label>
-            <div class="col">
-              {{ object.name }}
-            </div>
-          </div>
+                <div class="form-group border-bottom row">
+                    <label class="col">
+                        部门名称
+                    </label>
+                    <div class="col">
+                        {{ object.name }}
+                    </div>
+                </div>
 
-          <div class="form-group border-bottom row">
-            <label class="col">
-              电话号码
-            </label>
-            <div class="col">
-              {{ object.mobile_number }}
-            </div>
-          </div>
+                <div class="form-group border-bottom row">
+                    <label class="col">
+                        电话号码
+                    </label>
+                    <div class="col">
+                        {{ object.mobile_number }}
+                    </div>
+                </div>
 
-            <div class="form-group border-bottom row">
-            <label class="col">
-              部门描述
-            </label>
-            <div class="col">
-              {{ object.comment }}
+                <div class="form-group border-bottom row">
+                    <label class="col">
+                        部门描述
+                    </label>
+                    <div class="col">
+                        {{ object.comment }}
+                    </div>
+                </div>
+                <div class="form-group border-bottom row">
+                    <label class="col">
+                        员工数量
+                    </label>
+                    <div class="col">
+                        {{ num }}
+                    </div>
+                </div>
             </div>
-          </div>
+
         </div>
-
-      </div>
     </div>
-
+    <div class="card">
+        <div class="card-header">
+            {{ object.name }}下的员工
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                <tr>
+                    <th>序号</th>
+                    <th>员工姓名</th>
+                    <th>性别</th>
+                    <th>入职日期</th>
+                    <th>电话号码</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for staff in staffs %}
+                    {% ifequal staff.department object.name %}
+                        {% for activity in result.activitys %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ staff.name }}</td>
+                                <td>{{ staff.gender }}</td>
+                                <td>{{ staff.entry_date }}</td>
+                                <td>{{ staff.mobile_number }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endifequal %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
 
