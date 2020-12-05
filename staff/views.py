@@ -37,7 +37,7 @@ class StaffDeleteView(LoginRequiredMixin, DeleteView):
         return redirect('staff-list')
 
 
-# @login_required()
+@login_required()
 def register(request):
     if request.method == 'POST':
         form = StaffRegisterForm(request.POST)
