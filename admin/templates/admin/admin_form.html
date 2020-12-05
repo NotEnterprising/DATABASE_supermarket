@@ -4,7 +4,7 @@
 
 {% if object %}
 <div class="card-header">
-  <a href="{% url 'admin-detail' object.id %}" class="btn btn-tool">
+  <a href="{% url 'admin-detail' object.user.id %}" class="btn btn-tool">
     <i class="fas fa-backward"></i>
   </a>
 </div>

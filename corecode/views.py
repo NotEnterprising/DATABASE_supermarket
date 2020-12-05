@@ -139,8 +139,6 @@ class TermDeleteView(LoginRequiredMixin, DeleteView):
 
 
 # class
-
-
 class ClassListView(LoginRequiredMixin, SuccessMessageMixin, ListView):
     model = StudentClass
     template_name = 'corecode/class_list.html'

@@ -21,7 +21,7 @@
     <tbody>
 
       {% for admin in admin_list %}
-        <tr class='clickable-row' data-href="{% url 'admin-detail' admin.id %}">
+        <tr class='clickable-row' data-href="{% url 'admin-detail' admin.user.id %}">
           <td>{{ forloop.counter}}</td>
           <td>{{ admin.name}}</td>
           <td>{{ admin.get_gender_display}}</td>
