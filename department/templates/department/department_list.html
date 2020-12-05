@@ -16,6 +16,7 @@
             <th>电话号码</th>
             <th>员工数量</th>
             <th>部门描述</th>
+            <th>所属超市</th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
                 <td>{{ value.department.mobile_number }}</td>
                 <td>{{ value.staffCount }}</td>
                 <td>{{ value.department.comment }}</td>
+                <td>{{ value.department.supermarket }}</td>
             </tr>
         {% endfor %}
 
