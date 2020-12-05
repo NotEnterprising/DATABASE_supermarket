@@ -23,6 +23,9 @@ class SupermarketDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         results = SupermarketToActivity.objects.all()
+        supermarket = Supermarket.objects.get(id=self.kwargs['pk'])
+        departments = supermarket.department_set.all()
+
         bulk = {}
         for result in results:
             activitys = []
@@ -34,6 +37,7 @@ class SupermarketDetailView(LoginRequiredMixin, DetailView):
                 "activitys": activitys,
             }
         context['results'] = bulk
+        context['departments'] = departments
         return context
 
 
