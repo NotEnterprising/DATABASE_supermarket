@@ -78,17 +78,13 @@
                 </thead>
                 <tbody>
                 {% for staff in staffs %}
-                    {% ifequal staff.department object.name %}
-                        {% for activity in result.activitys %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ staff.name }}</td>
-                                <td>{{ staff.gender }}</td>
-                                <td>{{ staff.entry_date }}</td>
-                                <td>{{ staff.mobile_number }}</td>
-                            </tr>
-                        {% endfor %}
-                    {% endifequal %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ staff.name }}</td>
+                        <td>{{ staff.get_gender_display }}</td>
+                        <td>{{ staff.entry_date }}</td>
+                        <td>{{ staff.mobile_number }}</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
