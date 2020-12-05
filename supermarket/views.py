@@ -46,7 +46,7 @@ class SupermarketDetailView(LoginRequiredMixin, DetailView):
                     expresses.append(express.express)
             bulk[result.supermarket.id] = {
                 "supermarket": result.supermarket,
-                "activitys": expresses,
+                "expresses": expresses,
             }
         context['results'] = bulk
         context['resultsOfExpress'] = bulk1
