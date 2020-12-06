@@ -20,79 +20,79 @@
 
 {% block content %}
     <div class="row">
-        <div class="col-sm-8">
-            <div>
+    <div class="col-sm-8">
+        <div>
 
-                <div class="form-group border-bottom row">
-                    <label class="col">
-                        商品名称
-                    </label>
-                    <div class="col">
-                        {{ object.name }}
-                    </div>
+            <div class="form-group border-bottom row">
+                <label class="col">
+                    商品名称
+                </label>
+                <div class="col">
+                    {{ object.name }}
                 </div>
+            </div>
 
-                <div class="form-group border-bottom row">
-                    <label class="col">
-                        价格
-                    </label>
-                    <div class="col">
-                        {{ object.price }}
-                    </div>
+            <div class="form-group border-bottom row">
+                <label class="col">
+                    价格
+                </label>
+                <div class="col">
+                    {{ object.price }}
                 </div>
-                <div class="form-group border-bottom row">
-                    <label class="col">
-                        数量
-                    </label>
-                    <div class="col">
-                        {{ object.count }}
-                    </div>
+            </div>
+            <div class="form-group border-bottom row">
+                <label class="col">
+                    数量
+                </label>
+                <div class="col">
+                    {{ object.count }}
                 </div>
-                <div class="form-group border-bottom row">
-                    <label class="col">
-                        生产日期
-                    </label>
-                    <div class="col">
-                        {{ object.production_date }}
-                    </div>
+            </div>
+            <div class="form-group border-bottom row">
+                <label class="col">
+                    生产日期
+                </label>
+                <div class="col">
+                    {{ object.production_date }}
                 </div>
-                <div class="form-group border-bottom row">
-                    <label class="col">
-                        品类
-                    </label>
-                    {% if  object.category %}
-                        <div class="col">
-                            {{ object.category }}
-                        </div>
-                    {% else %}
-                        <div class="col">
+            </div>
+            <div class="form-group border-bottom row">
+                <label class="col">
+                    品类
+                </label>
+                {% if  object.category %}
+                    <div class="col">
+                        {{ object.category }}
+                    </div>
+                {% else %}
+                    <div class="col">
 
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="form-group border-bottom row">
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group border-bottom row">
+                {% if object.supermarket %}
                     <label class="col">
                         所属超市
                     </label>
                     <div class="col">
                         {{ object.supermarket }}
                     </div>
-                </div>
-                <div class="form-group border-bottom row">
+                {% elif object.warehouse %}
                     <label class="col">
                         贮存仓库
                     </label>
                     <div class="col">
                         {{ object.warehouse }}
                     </div>
-                </div>
-                <div class="form-group border-bottom row">
-                    <label class="col">
-                        供货商
-                    </label>
-                    <div class="col">
-                        {{ object.supplier }}
-                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group border-bottom row">
+                <label class="col">
+                    供货商
+                </label>
+                <div class="col">
+                    {{ object.supplier }}
                 </div>
             </div>
 

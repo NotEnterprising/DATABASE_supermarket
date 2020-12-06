@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}超市列表{% endblock title %}
+{% block title %}{{ supermarket.name }}出售的商品{% endblock title %}
 
 {% block content-header %}
     <div class="card-header">
-        <a href="{% url 'supermarket-detail' object.id %}" class="btn btn-tool">
+        <a href="{% url 'supermarket-detail' supermarket.id %}" class="btn btn-tool">
             <i class="fas fa-backward"></i>
         </a>
     </div>
@@ -15,23 +15,23 @@
     <thead class="thead-light">
       <tr>
         <th>序号</th>
-        <th>超市名称</th>
-        <th>开始营业时间</th>
-        <th>结束营业时间</th>
-        <th>电话号码</th>
-        <th>超市地址</th>
+        <th>商品名称</th>
+        <th>商品价格</th>
+        <th>商品数量</th>
+        <th>生产日期</th>
+        <th>品类</th>
       </tr>
     </thead>
     <tbody>
 
-      {% for supermarket in supermarket_list %}
+      {% for supermarket in commoditys %}
         <tr class='clickable-row' data-href="{% url 'supermarket-detail' supermarket.id %}">
           <td>{{ forloop.counter}}</td>
           <td>{{ supermarket.name}}</td>
-          <td>{{ supermarket.start_time}}</td>
-          <td>{{ supermarket.end_time}}</td>
-          <td>{{ supermarket.mobile_number}}</td>
-          <td>{{ supermarket.address}}</td>
+          <td>{{ supermarket.price}}</td>
+          <td>{{ supermarket.count}}</td>
+          <td>{{ supermarket.production_date}}</td>
+          <td>{{ supermarket.category}}</td>
         </tr>
       {% endfor %}
 
