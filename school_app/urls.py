@@ -27,7 +27,7 @@ urlpatterns = [
                   path('supermarket/', include('supermarket.urls')),
                   path('supermarketToActivity/', include('supermarketToactivity.urls')),
                   path('supermarketToExpress/', include('supermarketToexpress.urls')),
-                  # path('purchase/', include('purchase.urls')),
+                  path('purchase/', include('purchase.urls')),
                   path('express/', include('express.urls')),
                   path('activity/', include('activity.urls')),
                   path('department/', include('department.urls')),
