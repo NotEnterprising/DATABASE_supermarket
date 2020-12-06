@@ -134,7 +134,7 @@ def all_results_view(request):
     context = {
         "purchases": purchases,
         "dict": dict,
-        "supermarket": supermarket,
+        "supermarket": supermarkets,
     }
 
     return render(request, 'all_purchase_admin.html', context)
