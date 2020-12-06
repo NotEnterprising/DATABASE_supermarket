@@ -3,7 +3,7 @@
 {% block content-header %}
 {% if object %}
 <div class="card-header">
-  <a href="{% url 'customer-detail' object.id %}" class="btn btn-tool">
+  <a href="{% url 'customer-detail' object.user.id %}" class="btn btn-tool">
     <i class="fas fa-backward"></i>
   </a>
 </div>

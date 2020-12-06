@@ -8,10 +8,10 @@
     <i class="fas fa-backward"></i>
   </a>
   <div class="card-tools">
-    <a href="{% url 'customer-update' object.id %}" class="btn btn-tool">
+    <a href="{% url 'customer-update' object.user.id %}" class="btn btn-tool">
       <i class="fas fa-edit"></i>
     </a>
-    <a href="{% url 'customer-delete' object.id %}" class="btn btn-tool">
+    <a href="{% url 'customer-delete' object.user.id %}" class="btn btn-tool">
       <i class="fas fa-times"></i>
     </a>
   </div>

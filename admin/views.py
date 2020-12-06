@@ -24,7 +24,7 @@ class AdminDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'admin'
 
 
-# @login_required()
+@login_required()
 def register(request):
     if request.method == 'POST':
         form = AdminRegisterForm(request.POST)

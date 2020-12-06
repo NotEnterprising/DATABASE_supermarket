@@ -1,7 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.core.validators import RegexValidator, MinValueValidator
-from school_app.settings import hash_code
+
+from admin.models import User
 
 
 class Customer(models.Model):
@@ -14,14 +15,13 @@ class Customer(models.Model):
         ('two', '普通会员'),
         ('three', '超级会员'),
     ]
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    USERNAME_FIELD = 'user.username'
     name = models.CharField(max_length=200, verbose_name='用户昵称')
     gender = models.CharField(max_length=10, choices=GENDER, default='男', verbose_name='性别')
 
     vip_level = models.CharField(max_length=10, choices=VIP, default='非会员', verbose_name='会员星级')
     balance = models.IntegerField(verbose_name='余额', default=0, validators=[MinValueValidator(0)])
-
-    username = models.CharField(max_length=200, verbose_name='用户名')
-    password = models.CharField(max_length=200, verbose_name='密码')
 
     mobile_num_regex = RegexValidator(regex="^[0-9]{8,11}$", message="输入的电话号码格式不对")
     mobile_number = models.CharField(validators=[mobile_num_regex], max_length=13, blank=True, verbose_name='电话号码')
@@ -33,7 +33,3 @@ class Customer(models.Model):
 
     def get_absolute_url(self):
         return reverse('customer-detail', kwargs={'pk': self.pk})
-
-    def save(self, *args, **kwargs):
-        self.password = hash_code(self.password)
-        super().save(*args, **kwargs)
