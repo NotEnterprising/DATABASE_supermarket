@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+选择购买数量
+{% endblock title %}
+
+{% block content-header %}
+    <div class="card-header">
+        <a href="{% url 'create-purchase' %}" class="btn btn-tool">
+            <i class="fas fa-backward"></i>
+        </a>
+    </div>
+{% endblock content-header %}
+
+{% block content %}
+<form method="POST">
+  {% csrf_token %}
+  {{ formset.management_form}}
+
+  <table id="studenttable" class="table table-sm">
+    <thead>
+      <tr>
+        <th></th>
+        <th>商品名称</th>
+        <th>商品价格</th>
+        <th>剩余数量</th>
+        <th>生产日期</th>
+        <th>品类</th>
+        <th>购买数量</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for form in formset %}
+      {{ form.id}}
+        <tr>
+          <td>{{forloop.counter }}</td>
+          <td>{{form.instance.name }}</td>
+          <td>{{form.instance.price }}</td>
+          <td>{{form.instance.count }}</td>
+          <td>{{form.instance.production_date }}</td>
+          <td>{{form.instance.category }}</td>
+          <td style="width: 10%;">{{form.num | add_class:"form-control form-control-sm"}}</td>
+
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <input type="submit" class="btn btn-success" value="保存">
+  </form>
+
+{% endblock content %}

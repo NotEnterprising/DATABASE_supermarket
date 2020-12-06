@@ -8,7 +8,6 @@ from customer.models import Customer
 from purchase.forms import CreatePurchase, EditPurchase
 from purchase.models import Purchase
 
-
 # Create your views here.
 @login_required
 def create_purchase(request):
