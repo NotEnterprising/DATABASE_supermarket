@@ -34,7 +34,7 @@
             {% for form in formset %}
                 {{ form.id }}
                 <tr>
-                    <td>{{ form.instance.commodity.name }}</td>
+                    <td>{{ form.instance.commodity }}</td>
                     <td>{{ form.instance.commodity.price }}</td>
                     <td>{{ form.instance.commodity.count }}</td>
                     <td>{{ form.instance.commodity.production_date }}</td>

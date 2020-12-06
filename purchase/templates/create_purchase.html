@@ -32,7 +32,7 @@
         {% for commodity in commoditys %}
             <tr>
                 <td><input type="checkbox" id="{{ commodity.id }}" name="commoditys" value="{{ commodity.id }}"></td>
-                <td>{{ commodity.name }} </td>
+                <td>{{ commodity }} </td>
                 <td>{{ commodity.price }}</td>
                 <td>{{ commodity.count }}</td>
                 <td>{{ commodity.production_date }}</td>
