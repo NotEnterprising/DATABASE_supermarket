@@ -3,58 +3,86 @@
 
 
 {% block content-header %}
-<div class="card-header">
-  <a href="{% url 'warehouse-list' %}" class="btn btn-tool">
-    <i class="fas fa-backward"></i>
-  </a>
-  <div class="card-tools">
-    <a href="{% url 'warehouse-update' object.id %}" class="btn btn-tool">
-      <i class="fas fa-edit"></i>
-    </a>
-    <a href="{% url 'warehouse-delete' object.id %}" class="btn btn-tool">
-      <i class="fas fa-times"></i>
-    </a>
-  </div>
-</div>
+    <div class="card-header">
+        <a href="{% url 'warehouse-list' %}" class="btn btn-tool">
+            <i class="fas fa-backward"></i>
+        </a>
+        <div class="card-tools">
+            <a href="{% url 'warehouse-update' object.id %}" class="btn btn-tool">
+                <i class="fas fa-edit"></i>
+            </a>
+            <a href="{% url 'warehouse-delete' object.id %}" class="btn btn-tool">
+                <i class="fas fa-times"></i>
+            </a>
+        </div>
+    </div>
 {% endblock content-header %}
 
 {% block content %}
     <div class="row">
-      <div class="col-sm-8">
-        <div>
+        <div class="col-sm-8">
+            <div>
 
-          <div class="form-group border-bottom row">
-            <label class="col">
-               仓库名称
-            </label>
-            <div class="col">
-              {{ object.name }}
-            </div>
-          </div>
+                <div class="form-group border-bottom row">
+                    <label class="col">
+                        仓库名称
+                    </label>
+                    <div class="col">
+                        {{ object.name }}
+                    </div>
+                </div>
 
-          <div class="form-group border-bottom row">
-            <label class="col">
-              电话号码
-            </label>
-            <div class="col">
-              {{ object.mobile_number }}
-            </div>
-          </div>
+                <div class="form-group border-bottom row">
+                    <label class="col">
+                        电话号码
+                    </label>
+                    <div class="col">
+                        {{ object.mobile_number }}
+                    </div>
+                </div>
 
-            <div class="form-group border-bottom row">
-            <label class="col">
-              仓库地址
-            </label>
-            <div class="col">
-              {{ object.address }}
+                <div class="form-group border-bottom row">
+                    <label class="col">
+                        仓库地址
+                    </label>
+                    <div class="col">
+                        {{ object.address }}
+                    </div>
+                </div>
             </div>
-          </div>
+
         </div>
-
-      </div>
     </div>
 
-
+    <div class="card">
+        <div class="card-header">
+            {{ object.name }}包含的商品
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-sm">
+                <thead class="thead-light">
+                <tr>
+                    <th>序号</th>
+                    <th>商品名称</th>
+                    <th>商品价格</th>
+                    <th>商品数量</th>
+                    <th>生产日期</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for commodity in commoditys %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ commodity.name }}</td>
+                        <td>{{ commodity.price }}</td>
+                        <td>{{ commodity.count }}</td>
+                        <td>{{ commodity.production_date }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
 {% endblock content %}
