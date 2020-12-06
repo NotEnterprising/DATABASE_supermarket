@@ -104,18 +104,32 @@ def all_results_view(request):
     supermarkets = Supermarket.objects.all()
     categorys = Category.objects.all()
     dict = {}
-    for supermarket in supermarkets:
-        sup = {}
-        sup['其他'] = 0
-        for category in categorys:
-            sup[category] = 0
+    # for supermarket in supermarkets:
+    #     sup = {}
+    #     sup['其他'] = 0
+    #     for category in categorys:
+    #         sup[category] = 0
+    #         for purchase in purchases:
+    #             if purchase.commodity.supermarket == supermarket and purchase.commodity.category == category:
+    #                 sup[category] = sup[category] + purchase.commodity.price * purchase.num
+    #             elif purchase.commodity.supermarket == supermarket and purchase.commodity.category is None:
+    #                 sup['其他'] = sup['其他'] + purchase.commodity.price * purchase.num
+    #     dict[supermarket] = sup
+    for category in categorys:
+        cat = {}
+        for supermarket in supermarkets:
+            cat[supermarket] = 0
             for purchase in purchases:
                 if purchase.commodity.supermarket == supermarket and purchase.commodity.category == category:
-                    sup[category] = sup[category] + purchase.commodity.price * purchase.num
-                elif purchase.commodity.supermarket == supermarket and purchase.commodity.category is None:
-                    sup['其他'] = sup['其他'] + purchase.commodity.price * purchase.num
-        dict[supermarket] = sup
-
+                    cat[supermarket] = cat[supermarket] + purchase.commodity.price * purchase.num
+        dict[category] = cat
+    cat0 = {}
+    for supermarket in supermarkets:
+        for purchase in purchases:
+            cat0[supermarket] = 0
+            if purchase.commodity.supermarket == supermarket and purchase.commodity.category is None:
+                cat0[supermarket] = cat0[supermarket] + purchase.commodity.price * purchase.num
+    dict['其他'] = cat0
     print(dict)
     context = {
         "purchases": purchases,
