@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, HttpResponseRedirect, redirect
 
-from students.models import Student
 from supermarket.models import Supermarket
 from .models import SupermarketToExpress
 from .forms import CreateSupermarketToExpress, EditSupermarketToExpress

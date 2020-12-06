@@ -20,7 +20,6 @@ from django.urls import path, include
 urlpatterns = [
                   path('accounts/', include('django.contrib.auth.urls')),
                   path('', include('corecode.urls')),
-                  path('student/', include('students.urls')),
                   path('staff/', include('staff.urls')),
                   path('admin/', include('admin.urls')),
                   path('customer/', include('customer.urls')),
@@ -33,8 +32,6 @@ urlpatterns = [
                   path('department/', include('department.urls')),
                   path('category/', include('category.urls')),
                   path('commodity/', include('commodity.urls')),
-                  path('finance/', include('finance.urls')),
-                  path('result/', include('result.urls')),
                   path('warehouse/', include('warehouse.urls')),
                   path('supplier/', include('supplier.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
