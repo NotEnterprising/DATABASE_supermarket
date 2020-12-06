@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% block title %}
-选择购买数量
+    选择购买数量
 {% endblock title %}
 
 {% block content-header %}
@@ -14,40 +14,44 @@
 {% endblock content-header %}
 
 {% block content %}
-<form method="POST">
-  {% csrf_token %}
-  {{ formset.management_form}}
+    <form method="POST">
+        {% csrf_token %}
+        {{ formset.management_form }}
 
-  <table id="studenttable" class="table table-sm">
-    <thead>
-      <tr>
-        <th></th>
-        <th>商品名称</th>
-        <th>商品价格</th>
-        <th>剩余数量</th>
-        <th>生产日期</th>
-        <th>品类</th>
-        <th>购买数量</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for form in formset %}
-      {{ form.id}}
-        <tr>
-          <td>{{forloop.counter }}</td>
-          <td>{{form.instance.commodity.name }}</td>
-          <td>{{form.instance.commodity.price }}</td>
-          <td>{{form.instance.commodity.count }}</td>
-          <td>{{form.instance.commodity.production_date }}</td>
-          <td>{{form.instance.commodity.category }}</td>
-          <td style="width: 10%;">{{form.num | add_class:"form-control form-control-sm"}}</td>
+        <table id="studenttable" class="table table-sm">
+            <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>商品价格</th>
+                <th>剩余数量</th>
+                <th>生产日期</th>
+                <th>品类</th>
+                <th>购买数量</th>
+            </tr>
+            </thead>
+            <tbody>
 
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+            {% for i in list %}
+                {% for form in formset %}
+                    {% ifequal i form.instance.id %}
+                        {{ form.id }}
+                        <tr>
+                            <td>{{ form.instance.commodity.name }}</td>
+                            <td>{{ form.instance.commodity.price }}</td>
+                            <td>{{ form.instance.commodity.count }}</td>
+                            <td>{{ form.instance.commodity.production_date }}</td>
+                            <td>{{ form.instance.commodity.category }}</td>
+                            <td style="width: 10%;">{{ form.num | add_class:"form-control form-control-sm" }}</td>
 
-  <input type="submit" class="btn btn-success" value="保存">
-  </form>
+                        </tr>
+                    {% endifequal %}
+                {% endfor %}
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <input type="hidden" name="finish" value="True">
+        <input type="submit" class="btn btn-success" value="保存">
+    </form>
 
 {% endblock content %}
