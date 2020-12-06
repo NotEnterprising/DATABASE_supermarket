@@ -51,6 +51,8 @@ def edit_purchase(request):
             count = 0
             for i in form.cleaned_data:
                 count = count + 1
+                if i['num'] == 0:
+                    Purchase.objects.filter(id=i['id'].id).delete()
                 if i['num'] > i['id'].commodity.count:
                     messages.warning(request, "第" + str(count) + "个商品数量超过已有数量")
                     return render(request, 'edit_purchase.html', {"formset": form})

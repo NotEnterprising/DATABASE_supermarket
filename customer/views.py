@@ -30,6 +30,10 @@ def register(request):
     if request.method == 'POST':
         form = CustomerRegisterForm(request.POST)
         if form.is_valid():
+            if User.objects.get(username=form.cleaned_data['用户名']) is not None:
+                messages.warning(request, '用户名已存在')
+                form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
+                return render(request, 'admin/admin_form.html', context={'form': form})
             user = User.objects.create_user(username=form.cleaned_data['用户名'], password=form.cleaned_data['password1'],
                                             is_customer=True)
 
