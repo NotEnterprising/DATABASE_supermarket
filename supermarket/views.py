@@ -26,6 +26,8 @@ class SupermarketDetailView(LoginRequiredMixin, DetailView):
         results = SupermarketToActivity.objects.all()
         supermarket = Supermarket.objects.get(id=self.kwargs['pk'])
         departments = supermarket.department_set.all()
+        commoditys = supermarket.commodity_set.all()
+
         bulk = {}
         for result in results:
             activitys = []
@@ -51,6 +53,7 @@ class SupermarketDetailView(LoginRequiredMixin, DetailView):
         context['results'] = bulk
         context['resultsOfExpress'] = bulk1
         context['departments'] = departments
+        context['commoditys'] = commoditys
         return context
 
 

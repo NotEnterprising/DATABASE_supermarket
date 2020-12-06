@@ -31,6 +31,8 @@ class CommodityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             attrs={'type': 'date'})
         return form
 
+    # def post(self, request, *args, **kwargs):
+
 
 class CommodityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Commodity
