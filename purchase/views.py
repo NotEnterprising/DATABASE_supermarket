@@ -26,14 +26,13 @@ def create_purchase(request):
                 if min == 0:
                     min = p.id
             purchase = Purchase.objects.filter(customer_id=request.user.id)
-            purchase = Purchase.objects.filter(customer_id=request.user.id)
             form = EditPurchase(queryset=purchase)
             max = min + count
             a = [x for x in range(min, max)]
-            return render(request, 'edit_purchase.html', {"formset": form, "list": a})
+            request.session['min'] = min
+            return redirect('edit-purchase')
         else:
             messages.warning(request, "你没有选择任何商品")
-
     return render(request, 'create_purchase.html', {"commoditys": commoditys})
 
 
@@ -68,11 +67,13 @@ def edit_purchase(request):
                 i['id'].commodity.save()
             form.save()
             messages.success(request, '购买成功')
-            return redirect('edit-purchase')
+            return redirect('view-purchase')
+
     else:
-        purchase = Purchase.objects.filter(customer_id=request.user.id)
+        min = request.session['min']
+        purchase = Purchase.objects.filter(id__gte=min)
         form = EditPurchase(queryset=purchase)
-    return render(request, 'edit_purchase.html', {"formset": form})
+    return render(request, 'edit_purchase.html', {"formset": form, "list": request.session['list']})
 
 
 @login_required

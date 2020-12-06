@@ -31,9 +31,7 @@
             </thead>
             <tbody>
 
-            {% for i in list %}
                 {% for form in formset %}
-                    {% ifequal i form.instance.id %}
                         {{ form.id }}
                         <tr>
                             <td>{{ form.instance.commodity.name }}</td>
@@ -44,8 +42,6 @@
                             <td style="width: 10%;">{{ form.num | add_class:"form-control form-control-sm" }}</td>
 
                         </tr>
-                    {% endifequal %}
-                {% endfor %}
             {% endfor %}
             </tbody>
         </table>
