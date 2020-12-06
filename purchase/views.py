@@ -6,7 +6,7 @@ from django.shortcuts import render, HttpResponseRedirect, redirect
 from customer.models import Customer
 from purchase.forms import CreatePurchase, EditPurchase
 from purchase.models import Purchase
-from students.models import Student
+
 
 
 # Create your views here.
@@ -38,7 +38,7 @@ def edit_purchase(request):
     else:
         purchase = Purchase.objects.filter(customer_id=request.user.id)
         form = EditPurchase(queryset=purchase)
-    return render(request, 'purchase/edit_purchase.html', {"formset": form})
+    return render(request, 'edit_purchase.html', {"formset": form})
 
 
 @login_required
@@ -54,4 +54,4 @@ def all_results_view(request):
         "purchases": commoditys,
         "customer": customer
     }
-    return render(request, 'purchase/all_results.html', context)
+    return render(request, 'all_results.html', context)
