@@ -12,4 +12,4 @@ class CreateResults(forms.Form):
         queryset=Subject.objects.all(), widget=forms.CheckboxSelectMultiple)
 
 
-EditResults = modelformset_factory(Result, fields=('test_score', 'exam_score'), extra=0, can_delete=True)
+EditResults = modelformset_factory(Result, fields=['test_score', 'exam_score'], extra=0, can_delete=True)

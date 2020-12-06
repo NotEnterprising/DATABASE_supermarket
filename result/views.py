@@ -42,9 +42,11 @@ def create_result(request):
 
         # after choosing students
         id_list = request.POST.getlist('students')
+        print(id_list)
         if id_list:
             form = CreateResults(initial={"session": request.current_session, "term": request.current_term})
             studentlist = ','.join(id_list)
+            print(studentlist)
             return render(request, 'result/create_result_page2.html',
                           {"students": studentlist, "form": form, "count": len(id_list)})
         else:
@@ -64,6 +66,7 @@ def edit_results(request):
         results = Result.objects.filter(
             session=request.current_session, term=request.current_term)
         form = EditResults(queryset=results)
+        print(form)
     return render(request, 'result/edit_results.html', {"formset": form})
 
 

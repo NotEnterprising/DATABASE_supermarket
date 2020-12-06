@@ -14,4 +14,4 @@ class Purchase(models.Model):
         ordering = ['customer']
 
     def __str__(self):
-        return f'{self.customer} {self.commodity}'
+        return f'{self.id} '

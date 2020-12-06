@@ -48,6 +48,7 @@ class CommodityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             if (supermarket) and (warehouse):
                 form.fields['production_date'].widget = widgets.DateInput(
                     attrs={'type': 'date'})
+                messages.warning(request, "不能同时选择超市和仓库")
                 return render(request, 'commodity/commodity_form.html', context={'form': form})
             else:
                 form.save()
