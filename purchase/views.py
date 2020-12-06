@@ -3,13 +3,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, HttpResponseRedirect, redirect
 
+from category.models import Category
 from commodity.models import Commodity
 from customer.models import Customer
 from purchase.forms import CreatePurchase, EditPurchase
 from purchase.models import Purchase
 
-
 # Create your views here.
+from supermarket.models import Supermarket
+
+
 @login_required
 def create_purchase(request):
     commoditys = Commodity.objects.all()
@@ -77,7 +80,7 @@ def edit_purchase(request):
 
 
 @login_required
-def all_results_view(request):
+def results_view(request):
     purchases = Purchase.objects.all()
     commoditys = []
     for purchase in purchases:
@@ -90,3 +93,28 @@ def all_results_view(request):
         "customer": customer
     }
     return render(request, 'all_purchase.html', context)
+
+
+def all_results_view(request):
+    purchases = Purchase.objects.all()
+    supermarkets = Supermarket.objects.all()
+    categorys = Category.objects.all()
+    dict = {}
+    for supermarket in supermarkets:
+        sup = {}
+        sup['other'] = 0
+        for category in categorys:
+            sup['category'] = 0
+            for purchase in purchases:
+                if purchase.commodity.supermarket == supermarket and purchase.commodity.category == category:
+                    sup['category'] = sup['category'] + purchase.commodity.price * purchase.num
+                elif purchase.commodity.supermarket == supermarket and purchase.commodity.category is None:
+                    sup['other'] = sup['other'] + purchase.commodity.price * purchase.num
+        dict['supermarket'] = sup
+
+    context = {
+        "purchases": purchases,
+        "dict": dict,
+    }
+
+    return render(request, 'all_purchase2.html', context)
