@@ -36,7 +36,11 @@
                 <td>{{ commodity.price }}</td>
                 <td>{{ commodity.count }}</td>
                 <td>{{ commodity.production_date }}</td>
-                <td>{{ commodity.category }}</td>
+                {% if  commodity.category %}
+                    <td>{{ commodity.category }}</td>
+                {% else %}
+                    <td>其他</td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

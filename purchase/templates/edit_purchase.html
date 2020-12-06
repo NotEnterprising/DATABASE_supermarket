@@ -38,7 +38,11 @@
                     <td>{{ form.instance.commodity.price }}</td>
                     <td>{{ form.instance.commodity.count }}</td>
                     <td>{{ form.instance.commodity.production_date }}</td>
-                    <td>{{ form.instance.commodity.category }}</td>
+                    {% if  commodity.category %}
+                        <td>{{ commodity.category }}</td>
+                    {% else %}
+                        <td>其他</td>
+                    {% endif %}
                     <td style="width: 10%;">{{ form.num | add_class:"form-control form-control-sm" }}</td>
 
                 </tr>
