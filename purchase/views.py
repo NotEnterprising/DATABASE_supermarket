@@ -106,16 +106,17 @@ def all_results_view(request):
     dict = {}
     for supermarket in supermarkets:
         sup = {}
-        sup['other'] = 0
+        sup['其他'] = 0
         for category in categorys:
-            sup['category'] = 0
+            sup[category] = 0
             for purchase in purchases:
                 if purchase.commodity.supermarket == supermarket and purchase.commodity.category == category:
-                    sup['category'] = sup['category'] + purchase.commodity.price * purchase.num
+                    sup[category] = sup[category] + purchase.commodity.price * purchase.num
                 elif purchase.commodity.supermarket == supermarket and purchase.commodity.category is None:
-                    sup['other'] = sup['other'] + purchase.commodity.price * purchase.num
-        dict['supermarket'] = sup
+                    sup['其他'] = sup['其他'] + purchase.commodity.price * purchase.num
+        dict[supermarket] = sup
 
+    print(dict)
     context = {
         "purchases": purchases,
         "dict": dict,
