@@ -117,4 +117,4 @@ def all_results_view(request):
         "dict": dict,
     }
 
-    return render(request, 'all_purchase2.html', context)
+    return render(request, 'all_purchase_admin.html', context)
