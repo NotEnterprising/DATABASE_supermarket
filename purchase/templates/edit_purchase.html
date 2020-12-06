@@ -35,11 +35,11 @@
       {{ form.id}}
         <tr>
           <td>{{forloop.counter }}</td>
-          <td>{{form.instance.name }}</td>
-          <td>{{form.instance.price }}</td>
-          <td>{{form.instance.count }}</td>
-          <td>{{form.instance.production_date }}</td>
-          <td>{{form.instance.category }}</td>
+          <td>{{form.instance.commodity.name }}</td>
+          <td>{{form.instance.commodity.price }}</td>
+          <td>{{form.instance.commodity.count }}</td>
+          <td>{{form.instance.commodity.production_date }}</td>
+          <td>{{form.instance.commodity.category }}</td>
           <td style="width: 10%;">{{form.num | add_class:"form-control form-control-sm"}}</td>
 
         </tr>

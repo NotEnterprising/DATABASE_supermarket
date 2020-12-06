@@ -11,19 +11,21 @@ from purchase.models import Purchase
 # Create your views here.
 @login_required
 def create_purchase(request):
+    commoditys = Commodity.objects.all()
     if request.method == 'POST':
         form = CreatePurchase(request.POST)
-        if form.is_valid():
-            commoditys = form.cleaned_data['commoditys']
+        commoditys = request.POST.getlist('commoditys')
+        print(commoditys)
+        if list:
             results = []
             customer = Customer.objects.get(user_id=request.user.id)
             for commodity in commoditys:
-                results.append(Purchase(commodity=commodity, customer=customer))
+                results.append(Purchase(commodity_id=commodity, customer=customer))
             Purchase.objects.bulk_create(results)
-            return redirect('view-purchase')
-    commoditys = Commodity.objects.all()
-    form = CreatePurchase()
-    return render(request, 'create_purchase.html', {"form": form})
+            return redirect('edit-purchase')
+        else:
+            messages.warning(request, "你没有选择任何商品")
+    return render(request, 'create_purchase.html', {"commoditys": commoditys})
 
 
 @login_required
