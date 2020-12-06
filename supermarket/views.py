@@ -92,3 +92,16 @@ class SupermarketUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView)
 class SupermarketDeleteView(LoginRequiredMixin, DeleteView):
     model = Supermarket
     success_url = reverse_lazy('supermarket-list')
+
+
+class SupermarketDetailView1(LoginRequiredMixin, DetailView):
+    model = Supermarket
+    template_name = "supermarket/supermarket_detail_commodity.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        supermarket = Supermarket.objects.get(id=self.kwargs['pk'])
+        commoditys = supermarket.commodity_set.all()
+        context['commoditys'] = commoditys
+        context['supermarket'] = supermarket
+        return context

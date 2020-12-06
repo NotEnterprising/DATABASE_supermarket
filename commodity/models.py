@@ -24,7 +24,7 @@ class Commodity(models.Model):
 
     warehouse = models.ForeignKey(Warehouse, verbose_name='贮存仓库', on_delete=models.SET_NULL, blank=True, null=True)
 
-    supplier = models.ForeignKey(Supplier, verbose_name='供货商', on_delete=models.CASCADE, blank=True, null=True)
+    supplier = models.ForeignKey(Supplier, verbose_name='供货商', on_delete=models.CASCADE)
 
     def __str__(self):
         if self.supermarket is not None:
