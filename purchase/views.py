@@ -73,7 +73,7 @@ def edit_purchase(request):
         min = request.session['min']
         purchase = Purchase.objects.filter(id__gte=min)
         form = EditPurchase(queryset=purchase)
-    return render(request, 'edit_purchase.html', {"formset": form, "list": request.session['list']})
+    return render(request, 'edit_purchase.html', {"formset": form})
 
 
 @login_required

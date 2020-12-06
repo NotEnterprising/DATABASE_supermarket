@@ -31,22 +31,22 @@
             </thead>
             <tbody>
 
-                {% for form in formset %}
-                        {{ form.id }}
-                        <tr>
-                            <td>{{ form.instance.commodity.name }}</td>
-                            <td>{{ form.instance.commodity.price }}</td>
-                            <td>{{ form.instance.commodity.count }}</td>
-                            <td>{{ form.instance.commodity.production_date }}</td>
-                            <td>{{ form.instance.commodity.category }}</td>
-                            <td style="width: 10%;">{{ form.num | add_class:"form-control form-control-sm" }}</td>
+            {% for form in formset %}
+                {{ form.id }}
+                <tr>
+                    <td>{{ form.instance.commodity.name }}</td>
+                    <td>{{ form.instance.commodity.price }}</td>
+                    <td>{{ form.instance.commodity.count }}</td>
+                    <td>{{ form.instance.commodity.production_date }}</td>
+                    <td>{{ form.instance.commodity.category }}</td>
+                    <td style="width: 10%;">{{ form.num | add_class:"form-control form-control-sm" }}</td>
 
-                        </tr>
+                </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <input type="hidden" name="finish" value="True">
+
         <input type="submit" class="btn btn-success" value="保存">
     </form>
 

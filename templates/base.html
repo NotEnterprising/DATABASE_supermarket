@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>{{ school_name | default:"MySchool" }}</title>
+    <title>{{ school_name | default:"111" }}</title>
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
@@ -39,12 +39,7 @@
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="{% url 'home' %} " class="nav-link"><i class="fa fa-home"></i></a>
             </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="{% url 'current-session' %}" class="nav-link">Session: {{ current_session }}</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="{% url 'current-session' %}" class="nav-link">Term: {{ current_term }}</a>
-            </li>
+
         </ul>
 
 
@@ -57,18 +52,18 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <a href="#" class="dropdown-item">
-                        <i class="fas fa-user mr-2"></i> Profile
+                        <i class="fas fa-user mr-2"></i> 用户
                     </a>
                     <div class="dropdown-divider"></div>
                     <a href="{% url 'logout' %}" class="dropdown-item">
-                        <i class="fas fa-sign-out"></i> Sign out
+                        <i class="fas fa-sign-out"></i> 登出
                     </a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" data-widget="control-sidebar" data-slide="true"
-                   href="#" role="button"><i class="fas fa-th-large"></i></a>
-            </li>
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" data-widget="control-sidebar" data-slide="true"#}
+{#                   href="#" role="button"><i class="fas fa-th-large"></i></a>#}
+{#            </li>#}
         </ul>
     </nav>
     <!-- /.navbar -->
@@ -76,7 +71,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="{% url 'home' %}" class="brand-link">{{ school_name | default:"超市" }}</a>
+        <a href="{% url 'home' %}" class="brand-link">超市管理系统</a>
 
         <!-- Sidebar -->
         <div class="sidebar">
@@ -86,14 +81,6 @@
                 <ul class="nav nav-pills nav-sidebar flex-column"
                     data-widget="treeview" role="menu" data-accordion="false">
 
-                    <li class="nav-item">
-                        <a href="{% url 'student-list' %}" class="nav-link">
-                            <i class="nav-icon fas fa-shopping-bag"></i>
-                            <p>
-                                学生
-                            </p>
-                        </a>
-                    </li>
 
 
                     <li class="nav-item">
@@ -180,61 +167,19 @@
                         </ul>
                     </li>
 
-                    <li class="nav-header">Finance</li>
-                    <li class="nav-item">
-                        <a href="{% url 'invoice-list' %}" class="nav-link">
-                            <i class="nav-icon fas fa-money-bill-alt"></i>
-                            <p>
-                                Invoices
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-header">Results</li>
-                    <li class="nav-item">
-                        <a href="{% url 'create-result' %}" class="nav-link">
-                            <i class="nav-icon fas fa-money-bill-alt"></i>
-                            <p>
-                                Create Results
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'edit-results' %}" class="nav-link">
-                            <i class="nav-icon fas fa-money-bill-alt"></i>
-                            <p>
-                                Update Results
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'view-results' %}" class="nav-link">
-                            <i class="nav-icon fas fa-money-bill-alt"></i>
-                            <p>
-                                View Results
-                            </p>
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <a href="{% url 'create-purchase' %}" class="nav-link">
-                            <i class="nav-icon fas fa-money-bill-alt"></i>
+                            <i class="nav-icon fas fa-wallet"></i>
                             <p>
-                                Create purchase
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'edit-purchase' %}" class="nav-link">
-                            <i class="nav-icon fas fa-money-bill-alt"></i>
-                            <p>
-                                Update purchase
+                                购买
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{% url 'view-purchase' %}" class="nav-link">
-                            <i class="nav-icon fas fa-money-bill-alt"></i>
+                            <i class="nav-icon fas fa-folder"></i>
                             <p>
-                                View purchase
+                                购买记录
                             </p>
                         </a>
                     </li>
@@ -289,59 +234,6 @@
                         </a>
                     </li>
 
-                    <li class="nav-header">Others</li>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-copy"></i>
-                            <p>
-                                Management
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{% url 'sessions' %}" class="nav-link">
-                                    <i class="nav-icon fas fa-bars"></i>
-                                    <p>
-                                        Sessions
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{% url 'terms' %}" class="nav-link">
-                                    <i class="nav-icon fas fa-bars"></i>
-                                    <p>
-                                        Terms
-                                        <i class="right"></i>
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{% url 'subjects' %}" class="nav-link">
-                                    <i class="nav-icon fas fa-bars"></i>
-                                    <p>
-                                        Subjects
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{% url 'classes' %}" class="nav-link">
-                                    <i class="nav-icon fas fa-bars"></i>
-                                    <p>
-                                        Classes
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'configs' %}" class="nav-link">
-                            <i class="nav-icon fas fa-cog"></i>
-                            <p>
-                                Settings
-                            </p>
-                        </a>
-                    </li>
 
 
                 </ul>
