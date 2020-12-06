@@ -17,7 +17,7 @@ class Department(models.Model):
     comment = models.CharField(max_length=200, verbose_name='部门描述')
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.supermarket.name}-{self.name}'
 
     def get_absolute_url(self):
         return reverse('department-detail', kwargs={'pk': self.pk})
