@@ -54,4 +54,4 @@ def all_results_view(request):
         "purchases": commoditys,
         "customer": customer
     }
-    return render(request, 'all_results.html', context)
+    return render(request, 'all_purchase.html', context)
