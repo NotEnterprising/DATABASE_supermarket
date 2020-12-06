@@ -1,4 +1,3 @@
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, DetailView
@@ -19,6 +18,13 @@ class WarehouseDetailView(LoginRequiredMixin, DetailView):
     model = Warehouse
     template_name = "warehouse/warehouse_detail.html"
     context_object_name = 'warehouse'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        warehouse = Warehouse.objects.get(id=self.kwargs['pk'])
+        commoditys = warehouse.commodity_set.all()
+        context['commoditys'] = commoditys
+        return context
 
 
 class WarehouseCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):

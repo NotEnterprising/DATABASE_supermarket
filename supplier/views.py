@@ -1,4 +1,3 @@
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, DetailView
@@ -19,6 +18,13 @@ class SupplierDetailView(LoginRequiredMixin, DetailView):
     model = Supplier
     template_name = "supplier/supplier_detail.html"
     context_object_name = 'supplier'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        supplier = Supplier.objects.get(id=self.kwargs['pk'])
+        commoditys = supplier.commodity_set.all()
+        context['commoditys'] = commoditys
+        return context
 
 
 class SupplierCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
