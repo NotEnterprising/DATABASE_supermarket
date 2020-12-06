@@ -15,7 +15,7 @@ from supermarket.models import Supermarket
 
 @login_required
 def create_purchase(request):
-    commoditys = Commodity.objects.all()
+    commoditysBefore = Commodity.objects.all()
     if request.method == 'POST':
         form = CreatePurchase(request.POST)
         commoditys = request.POST.getlist('commoditys')
@@ -36,6 +36,10 @@ def create_purchase(request):
             return redirect('edit-purchase')
         else:
             messages.warning(request, "你没有选择任何商品")
+    commoditys = []
+    for c in commoditysBefore:
+        if c.supermarket is not None:
+            commoditys.append(c)
     return render(request, 'create_purchase.html', {"commoditys": commoditys})
 
 
