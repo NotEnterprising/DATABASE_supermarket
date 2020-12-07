@@ -3,65 +3,68 @@
 
 
 {% block content-header %}
-<div class="card-header">
-  <a href="{% url 'customer-list' %}" class="btn btn-tool">
-    <i class="fas fa-backward"></i>
-  </a>
-  <div class="card-tools">
-    <a href="{% url 'customer-update' object.user.id %}" class="btn btn-tool">
-      <i class="fas fa-edit"></i>
-    </a>
-    <a href="{% url 'customer-delete' object.user.id %}" class="btn btn-tool">
-      <i class="fas fa-times"></i>
-    </a>
-  </div>
-</div>
+    <div class="card-header">
+        <a href="{% url 'customer-list' %}" class="btn btn-tool">
+            <i class="fas fa-backward"></i>
+        </a>
+        {% if user.is_admin %}
+            <div class="card-tools">
+                <a href="{% url 'customer-update' object.user.id %}" class="btn btn-tool">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'customer-delete' object.user.id %}" class="btn btn-tool">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
+        {% endif %}
+    </div>
 {% endblock content-header %}
 
 {% block content %}
-    <img src="{% static 'dist/img/默认用户.jpg' %}" class="float-left rounded-circle mr-3" style="width: 120px; height: 120px;">
+    <img src="{% static 'dist/img/默认用户.jpg' %}" class="float-left rounded-circle mr-3"
+         style="width: 120px; height: 120px;">
     <div class="row">
-      <div class="col-sm-4">
-        <div>
-          <h3>{{ object }} </h3>
-          <h5>{{ object.current_class }} </h5>
-          <h5>{{ object.get_gender_display }} </h5>
-          <p>{{ object.get_vip_level_display }}</p>
-          <h6>用户名:{{ object.user.username }} </h6>
+        <div class="col-sm-4">
+            <div>
+                <h3>{{ object }} </h3>
+                <h5>{{ object.current_class }} </h5>
+                <h5>{{ object.get_gender_display }} </h5>
+                <p>{{ object.get_vip_level_display }}</p>
+                <h6>用户名:{{ object.user.username }} </h6>
+            </div>
         </div>
-      </div>
-      <div class="col-sm-8">
-        <div>
+        <div class="col-sm-8">
+            <div>
 
-          <div class="form-group border-bottom row">
-            <label class="col">
-               电话号码
-            </label>
-            <div class="col">
-              {{ object.mobile_number}}
-            </div>
-          </div>
+                <div class="form-group border-bottom row">
+                    <label class="col">
+                        电话号码
+                    </label>
+                    <div class="col">
+                        {{ object.mobile_number }}
+                    </div>
+                </div>
 
-          <div class="form-group border-bottom row">
-            <label class="col">
-              住址
-            </label>
-            <div class="col">
-              {{ object.address }}
-            </div>
-          </div>
+                <div class="form-group border-bottom row">
+                    <label class="col">
+                        住址
+                    </label>
+                    <div class="col">
+                        {{ object.address }}
+                    </div>
+                </div>
 
-          <div class="form-group border-bottom row">
-            <label class="col">
-              余额
-            </label>
-            <div class="col">
-              {{ object.balance }}
+                <div class="form-group border-bottom row">
+                    <label class="col">
+                        余额
+                    </label>
+                    <div class="col">
+                        {{ object.balance }}
+                    </div>
+                </div>
             </div>
-          </div>
+
         </div>
-
-      </div>
     </div>
 
 {% endblock content %}

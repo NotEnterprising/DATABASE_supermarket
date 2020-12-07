@@ -3,8 +3,10 @@
 {% block title %}供货商列表{% endblock title %}
 
 {% block breadcrumb %}
+    {% if user.is_admin %}
 <a class="btn btn-primary" href="{% url 'supplier-create' %}"><i
     class="fas fa-plus"></i> 新的供货商</a>
+    {% endif %}
 {% endblock breadcrumb %}
 
 {% block content %}

@@ -7,14 +7,16 @@
         <a href="{% url 'staff-list' %}" class="btn btn-tool">
             <i class="fas fa-backward"></i>
         </a>
-        <div class="card-tools">
-            <a href="{% url 'staff-update' object.user.id %}" class="btn btn-tool">
-                <i class="fas fa-edit"></i>
-            </a>
-            <a href="{% url 'staff-delete' object.user.id %}" class="btn btn-tool">
-                <i class="fas fa-times"></i>
-            </a>
-        </div>
+        {% if user.is_admin %}
+            <div class="card-tools">
+                <a href="{% url 'staff-update' object.user.id %}" class="btn btn-tool">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="{% url 'staff-delete' object.user.id %}" class="btn btn-tool">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
+        {% endif %}
     </div>
 {% endblock content-header %}
 

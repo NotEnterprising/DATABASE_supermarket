@@ -4,8 +4,10 @@
 {% block title %}超市列表{% endblock title %}
 
 {% block breadcrumb %}
+    {% if user.is_admin %}
     <a class="btn btn-primary" href="{% url 'supermarket-create' %}"><i
             class="fas fa-plus"></i> 新的超市</a>
+    {% endif %}
 {% endblock breadcrumb %}
 
 {% block content %}
