@@ -1,5 +1,8 @@
+from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms import widgets, forms
@@ -14,6 +17,12 @@ class SupermarketListView(LoginRequiredMixin, ListView):
     model = Supermarket
     context_object_name = 'supermarket_list'
     template_name = "supermarket/supermarket_list.html"
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        supermarket_list = Supermarket.objects.all()
+        return render(request, 'supermarket/supermarket_list.html', {'supermarket_list': supermarket_list})
 
 
 class SupermarketDetailView(LoginRequiredMixin, DetailView):

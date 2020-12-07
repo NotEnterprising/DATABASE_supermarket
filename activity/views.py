@@ -1,5 +1,7 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms import widgets
@@ -9,10 +11,11 @@ from .forms import ActivityForm
 from .models import Activity
 
 
-class ActivityListView(LoginRequiredMixin, ListView):
+class ActivityListView(LoginRequiredMixin, ListView, PermissionRequiredMixin):
     model = Activity
     context_object_name = 'activity_list'
     template_name = "activity/activity_list.html"
+    permission_required = ('activity.view_activity', 'activity.add_activity')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

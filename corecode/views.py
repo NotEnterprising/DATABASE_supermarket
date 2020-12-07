@@ -15,7 +15,9 @@ from .forms import SiteConfigForm, AcademicTermForm, AcademicSessionForm, Studen
 # Create your views here.
 @login_required
 def index_view(request):
-    return render(request, 'index.html')
+    user = request.user
+    return render(request, 'index.html', {"user": user})
+
 
 @login_required
 def siteconfig_view(request):

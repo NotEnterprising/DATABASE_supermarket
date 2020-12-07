@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'supermarketToactivity',
     'supermarketToexpress',
     'purchase',
+    'account',
 ]
 
 MIDDLEWARE = [
