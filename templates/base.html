@@ -83,16 +83,15 @@
                     data-widget="treeview" role="menu" data-accordion="false">
 
 
-                    <li class="nav-item">
-                        <a href="{% url 'commodity-list' %}" class="nav-link">
-                            <i class="nav-icon fas fa-shopping-bag"></i>
-                            <p>
-                                商品
-                            </p>
-                        </a>
-                    </li>
-
                     {% if user.is_staff or user.is_admin %}
+                        <li class="nav-item">
+                            <a href="{% url 'commodity-list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-shopping-bag"></i>
+                                <p>
+                                    商品
+                                </p>
+                            </a>
+                        </li>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-shopping-cart"></i>
@@ -211,15 +210,15 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{% url 'activity-list' %}" class="nav-link">
+                                <i class="nav-icon fas fa-crown"></i>
+                                <p>
+                                    活动
+                                </p>
+                            </a>
+                        </li>
                     {% endif %}
-                    <li class="nav-item">
-                        <a href="{% url 'activity-list' %}" class="nav-link">
-                            <i class="nav-icon fas fa-crown"></i>
-                            <p>
-                                活动
-                            </p>
-                        </a>
-                    </li>
                     <li class="nav-item">
                         <a href="{% url 'express-list' %}" class="nav-link">
                             <i class="nav-icon fas fa-truck"></i>
