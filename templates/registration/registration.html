@@ -1,0 +1,118 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>{{ school_name | default:"MySchool" }}</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+          href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet"
+          href="{% static 'plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+
+    <!--Login Page Csss-->
+    <link rel="stylesheet" href="{% static 'dist/css/login-page.css' %}">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link
+            href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700"
+            rel="stylesheet">
+</head>
+<body>
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100" style="padding-top: 60px;padding-bottom: 60px;padding-left: 160px;">
+
+            <form method="post" action="{% url 'login' %}" style="width: 600px;">
+                {% csrf_token %}
+                <span class="login100-form-title">
+                   注册
+                                </span>
+                <span class="error-msg">
+                    {% if form.errors %}
+                        <p class="error-msg">你的用户名和密码不匹配，请重试</p>
+                    {% endif %}
+
+                    {% if next %}
+                        {% if user.is_authenticated %}
+                            <p class="error-msg"> 你的账户不具备进入此界面的权限，请在登陆后尝试进入</p>
+                        {% else %}
+                            </span>
+                            <p>请登陆后尝试查看此界面</p>
+                        {% endif %}
+                    {% endif %}
+                </span>
+
+                {% for field in form %}
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="{{ field.auto_id }}">
+                            {{ field.label }}
+                            {% for error in field.errors %}
+                                <small id="{{ field.auto_id }}" class="text-danger">{{ error }}</small>
+                            {% endfor %}
+                        </label>
+                        <div class="col-sm-9">
+                            {{ field | add_class:"form-control" }}
+                            {% if field.help_text %}
+                                <small>{{ field.help_text|safe }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                <div class="container-login100-form-btn" >
+                    <button class="login100-form-btn" type="submit" value="Login" >
+                        注册
+                    </button>
+                    <input type="hidden" name="next" value="{{ next }}">
+
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- REQUIRED SCRIPTS -->
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'dist/js/jquery.formset.js' %}"></script>
+<!-- Bootstrap -->
+<script
+        src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+<!-- overlayScrollbars -->
+<script
+        src="{% static 'plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.js' %}"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+<script src="{% static 'dist/js/demo.js' %}"></script>
+
+{% if messages %}
+    {% for message in messages %}
+        <script type=text/javascript>
+            toastr.options.progressBar = true;
+            toastr.{{ message.tags }}('{{ message }}')
+        </script>
+    {% endfor %}
+{% endif %}
+
+</body>
