@@ -28,7 +28,6 @@ def register(request):
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
     else:
         form = CustomerRegisterForm()
-        form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
     return render(request, 'registration/registration.html', context={'form': form})
 
 
