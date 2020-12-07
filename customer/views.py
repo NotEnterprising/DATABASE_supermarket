@@ -49,7 +49,8 @@ def register(request):
     else:
         form = CustomerRegisterForm()
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
-    return render(request, 'customer/customer_form.html', context={'form': form})
+    flag = True
+    return render(request, 'customer/customer_form.html', context={'form': form, "flag": flag})
 
 
 class CustomerUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -88,7 +89,8 @@ class CustomerUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         user = User.objects.get(id=self.kwargs['pk'])
         form = self.form_class(instance=customer)
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
-        return render(request, 'customer/customer_form.html', {'form': form})
+        flag = False
+        return render(request, 'customer/customer_form.html', {'form': form, "flag": flag})
 
 
 class CustomerDeleteView(LoginRequiredMixin, DeleteView):
