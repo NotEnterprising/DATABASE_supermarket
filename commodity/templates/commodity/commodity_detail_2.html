@@ -1,0 +1,105 @@
+{% extends 'base-2.html' %}
+{% load static %}
+
+
+{% block content-header %}
+    <div class="card-header">
+        <a href="{% url 'commodity-list-2' %}" class="btn btn-tool">
+            <i class="fas fa-backward"></i>
+        </a>
+        <div class="card-tools">
+            <a href="{% url 'commodity-update-2' object.id %}" class="btn btn-tool">
+                <i class="fas fa-edit"></i>
+            </a>
+            <a href="{% url 'commodity-delete-2' object.id %}" class="btn btn-tool">
+                <i class="fas fa-times"></i>
+            </a>
+        </div>
+    </div>
+{% endblock content-header %}
+
+{% block content %}
+    <div class="row">
+    <div class="col-sm-8">
+        <div>
+
+            <div class="form-group border-bottom row">
+                <label class="col">
+                    商品名称
+                </label>
+                <div class="col">
+                    {{ object.name }}
+                </div>
+            </div>
+
+            <div class="form-group border-bottom row">
+                <label class="col">
+                    价格
+                </label>
+                <div class="col">
+                    {{ object.price }}
+                </div>
+            </div>
+            <div class="form-group border-bottom row">
+                <label class="col">
+                    数量
+                </label>
+                <div class="col">
+                    {{ object.count }}
+                </div>
+            </div>
+            <div class="form-group border-bottom row">
+                <label class="col">
+                    生产日期
+                </label>
+                <div class="col">
+                    {{ object.production_date }}
+                </div>
+            </div>
+            <div class="form-group border-bottom row">
+                <label class="col">
+                    品类
+                </label>
+                {% if  object.category %}
+                    <div class="col">
+                        {{ object.category }}
+                    </div>
+                {% else %}
+                    <div class="col">
+
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group border-bottom row">
+                {% if object.supermarket %}
+                    <label class="col">
+                        所属超市
+                    </label>
+                    <div class="col">
+                        {{ object.supermarket }}
+                    </div>
+                {% elif object.warehouse %}
+                    <label class="col">
+                        贮存仓库
+                    </label>
+                    <div class="col">
+                        {{ object.warehouse }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group border-bottom row">
+                <label class="col">
+                    供货商
+                </label>
+                <div class="col">
+                    {{ object.supplier }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+{% endblock content %}
