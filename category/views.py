@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms import widgets, forms
@@ -56,6 +56,10 @@ class CategoryCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context['form'] = CategoryForm()
         return context
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(CategoryCreateView, self).get(self, request, *args, **kwargs)
 
 class CategoryUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Category
@@ -69,7 +73,17 @@ class CategoryUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         form = super(CategoryUpdateView, self).get_form()
         return form
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(CategoryUpdateView, self).get(self, request, *args, **kwargs)
+
 
 class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     model = Category
     success_url = reverse_lazy('category-list')
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(CategoryDeleteView, self).get(self, request, *args, **kwargs)

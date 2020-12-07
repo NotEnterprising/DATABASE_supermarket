@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -34,6 +35,11 @@ class ActivityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context['form'] = ActivityForm()
         return context
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('activity-list')
+        return super(ActivityCreateView, self).get(self, request, *args, **kwargs)
+
 
 class ActivityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Activity
@@ -47,9 +53,19 @@ class ActivityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         form = super(ActivityUpdateView, self).get_form()
         return form
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('activity-list')
+        return super(ActivityUpdateView, self).get(self, request, *args, **kwargs)
+
 
 class ActivityDeleteView(LoginRequiredMixin, DeleteView):
     model = Activity
     success_url = reverse_lazy('activity-list')
     template_name = 'activity/core_confirm_delete.html'
     success_message = "品类信息删除成功"
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('activity-list')
+        return super(ActivityDeleteView, self).get(self, request, *args, **kwargs)

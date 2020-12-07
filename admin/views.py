@@ -17,15 +17,29 @@ class AdminListView(LoginRequiredMixin, ListView):
     context_object_name = 'admin_list'
     template_name = "admin/admin_list.html"
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(AdminListView, self).get(self, request, *args, **kwargs)
+
 
 class AdminDetailView(LoginRequiredMixin, DetailView):
     model = Admin
     template_name = "admin/admin_detail.html"
     context_object_name = 'admin'
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(AdminDetailView, self).get(self, request, *args, **kwargs)
+
 
 @login_required()
 def register(request):
+    if request.user.is_customer:
+        return redirect('home')
+    elif request.user.is_staff:
+        return redirect('admin-list')
     if request.method == 'POST':
         form = AdminRegisterForm(request.POST)
         if form.is_valid():
@@ -78,6 +92,10 @@ class AdminUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return render(request, 'admin/admin_form.html', context={'form': form})
 
     def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        elif request.user.is_staff:
+            return redirect('admin-list')
         admin = Admin.objects.get(user_id=self.kwargs['pk'])
         user = User.objects.get(id=self.kwargs['pk'])
         form = self.form_class(instance=admin)
@@ -95,3 +113,10 @@ class AdminDeleteView(LoginRequiredMixin, DeleteView):
         admin.delete()
         temp.delete()
         return redirect('admin-list')
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        elif request.user.is_staff:
+            return redirect('admin-list')
+        return super(AdminDeleteView, self).get(self, request, *args, **kwargs)

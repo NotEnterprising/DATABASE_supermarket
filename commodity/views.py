@@ -16,11 +16,21 @@ class CommodityListView(LoginRequiredMixin, ListView):
     context_object_name = 'commodity_list'
     template_name = "commodity/commodity_list.html"
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(CommodityListView, self).get(self, request, *args, **kwargs)
+
 
 class CommodityDetailView(LoginRequiredMixin, DetailView):
     model = Commodity
     template_name = "commodity/commodity_detail.html"
     context_object_name = 'commodity'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(CommodityDetailView, self).get(self, request, *args, **kwargs)
 
 
 class CommodityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -57,6 +67,11 @@ class CommodityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             attrs={'type': 'date'})
         return render(request, 'commodity/commodity_form.html', context={'form': form})
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(CommodityCreateView, self).get(self, request, *args, **kwargs)
+
 
 class CommodityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Commodity
@@ -70,7 +85,17 @@ class CommodityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             attrs={'type': 'date'})
         return form
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(CommodityUpdateView, self).get(self, request, *args, **kwargs)
+
 
 class CommodityDeleteView(LoginRequiredMixin, DeleteView):
     model = Commodity
     success_url = reverse_lazy('commodity-list')
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(CommodityDeleteView, self).get(self, request, *args, **kwargs)
