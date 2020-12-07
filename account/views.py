@@ -14,18 +14,22 @@ def register(request):
     if request.method == 'POST':
         form = CustomerRegisterForm(request.POST)
         if form.is_valid():
-            if User.objects.get(username=form.cleaned_data['用户名']) is not None:
+            print(form)
+            a = None
+            try:
+                a = User.objects.get(username=form.cleaned_data['用户名'])
+            except:
+                pass
+            if a is not None:
                 messages.warning(request, '用户名已存在')
-                form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
-                return render(request, 'admin/admin_form.html', context={'form': form})
+                return render(request, 'registration/registration.html', context={'form': form})
             user = User.objects.create_user(username=form.cleaned_data['用户名'], password=form.cleaned_data['password1'],
                                             is_customer=True)
 
             customer = Customer.objects.create(name=form.cleaned_data['name'], gender=form.cleaned_data['gender'],
                                                mobile_number=form.cleaned_data['mobile_number'], user_id=user.id)
             customer.save()
-            return HttpResponseRedirect("/accounts/login/")
-        form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
+            return redirect('login')
     else:
         form = CustomerRegisterForm()
     return render(request, 'registration/registration.html', context={'form': form})
