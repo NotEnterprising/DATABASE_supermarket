@@ -29,7 +29,7 @@ def register(request):
     else:
         form = CustomerRegisterForm()
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
-    return render(request, 'registration.html', context={'form': form})
+    return render(request, 'registration/registration.html', context={'form': form})
 
 
 def login(request):
@@ -38,18 +38,10 @@ def login(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-
             user = auth.authenticate(username=username, password=password)
-
             if user is not None and user.is_active:
                 auth.login(request, user)
-                if user.is_customer:
-                    return redirect('home')
-                elif user.is_staff:
-                    return redirect('activity-create')
-                elif user.is_admin:
-                    print(user.user_permissions.all())
-                    return redirect('activity-create')
+                return redirect('home')
             else:
                 return render(request, 'registration/login.html',
                               {'form': form, 'message': '输入密码不对请重新尝试'})

@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms import widgets, forms
@@ -38,6 +39,11 @@ class WarehouseCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
         return form
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer or request.user.is_staff:
+            return redirect('warehouse-list')
+        return super(WarehouseCreateView, self).get(self, request, *args, **kwargs)
+
 
 class WarehouseUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Warehouse
@@ -50,7 +56,17 @@ class WarehouseUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
         return form
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer or request.user.is_staff:
+            return redirect('warehouse-list')
+        return super(WarehouseUpdateView, self).get(self, request, *args, **kwargs)
+
 
 class WarehouseDeleteView(LoginRequiredMixin, DeleteView):
     model = Warehouse
     success_url = reverse_lazy('warehouse-list')
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer or request.user.is_staff:
+            return redirect('warehouse-list')
+        return super(WarehouseDeleteView, self).get(self, request, *args, **kwargs)

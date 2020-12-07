@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms import widgets, forms
@@ -28,6 +29,11 @@ class DepartmentListView(LoginRequiredMixin, ListView):
         }
         return context
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(DepartmentListView, self).get(self, request, *args, **kwargs)
+
 
 class DepartmentDetailView(LoginRequiredMixin, DetailView):
     model = Department
@@ -43,6 +49,11 @@ class DepartmentDetailView(LoginRequiredMixin, DetailView):
         context['num'] = num
         return context
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(DepartmentDetailView, self).get(self, request, *args, **kwargs)
+
 
 class DepartmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Department
@@ -53,6 +64,13 @@ class DepartmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         '''add date picker in forms'''
         form = super(DepartmentCreateView, self).get_form()
         return form
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        elif request.user.is_staff:
+            return redirect('department-list')
+        return super(DepartmentCreateView, self).get(self, request, *args, **kwargs)
 
 
 class DepartmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -65,7 +83,21 @@ class DepartmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         form = super(DepartmentUpdateView, self).get_form()
         return form
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        elif request.user.is_staff:
+            return redirect('department-list')
+        return super(DepartmentUpdateView, self).get(self, request, *args, **kwargs)
+
 
 class DepartmentDeleteView(LoginRequiredMixin, DeleteView):
     model = Department
     success_url = reverse_lazy('department-list')
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        elif request.user.is_staff:
+            return redirect('department-list')
+        return super(DepartmentDeleteView, self).get(self, request, *args, **kwargs)

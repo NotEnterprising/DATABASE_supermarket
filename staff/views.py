@@ -19,11 +19,21 @@ class StaffListView(LoginRequiredMixin, ListView):
     context_object_name = 'staff_list'
     template_name = "staff/staff_list.html"
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(StaffListView, self).get(self, request, *args, **kwargs)
+
 
 class StaffDetailView(LoginRequiredMixin, DetailView):
     model = Staff
     template_name = "staff/staff_detail.html"
     context_object_name = 'staff'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(StaffDetailView, self).get(self, request, *args, **kwargs)
 
 
 class StaffDeleteView(LoginRequiredMixin, DeleteView):
@@ -37,9 +47,18 @@ class StaffDeleteView(LoginRequiredMixin, DeleteView):
         temp.delete()
         return redirect('staff-list')
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer or request.user.is_staff:
+            return redirect('home')
+        return super(StaffDeleteView, self).get(self, request, *args, **kwargs)
+
 
 @login_required()
 def register(request):
+    if request.user.is_customer:
+        return redirect('home')
+    elif request.user.is_staff:
+        return redirect('staff-list')
     if request.method == 'POST':
         form = StaffRegisterForm(request.POST)
         if form.is_valid():
@@ -103,6 +122,10 @@ class StaffUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return render(request, 'staff/staff_form.html', context={'form': form})
 
     def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        elif request.user.is_staff:
+            return redirect('staff-list')
         staff = Staff.objects.get(user_id=self.kwargs['pk'])
         form = self.form_class(instance=staff)
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})

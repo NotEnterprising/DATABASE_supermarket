@@ -18,15 +18,29 @@ class CustomerListView(LoginRequiredMixin, ListView):
     context_object_name = 'customer_list'
     template_name = "customer/customer_list.html"
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(CustomerListView, self).get(self, request, *args, **kwargs)
+
 
 class CustomerDetailView(LoginRequiredMixin, DetailView):
     model = Customer
     template_name = "customer/customer_detail.html"
     context_object_name = 'customer'
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        return super(CustomerDetailView, self).get(self, request, *args, **kwargs)
+
 
 @login_required()
 def register(request):
+    if request.user.is_customer:
+        return redirect('home')
+    elif request.user.is_staff:
+        return redirect('customer-list')
     if request.method == 'POST':
         form = CustomerRegisterForm(request.POST)
         if form.is_valid():
@@ -85,6 +99,10 @@ class CustomerUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return render(request, 'customer/customer_form.html', context={'form': form})
 
     def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        elif request.user.is_staff:
+            return redirect('customer-list')
         customer = Customer.objects.get(user_id=self.kwargs['pk'])
         user = User.objects.get(id=self.kwargs['pk'])
         form = self.form_class(instance=customer)
@@ -103,3 +121,10 @@ class CustomerDeleteView(LoginRequiredMixin, DeleteView):
         customer.delete()
         temp.delete()
         return redirect('customer-list')
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer:
+            return redirect('home')
+        elif request.user.is_staff:
+            return redirect('customer-list')
+        return super(CustomerDeleteView, self).get(self, request, *args, **kwargs)

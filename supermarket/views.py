@@ -18,12 +18,6 @@ class SupermarketListView(LoginRequiredMixin, ListView):
     context_object_name = 'supermarket_list'
     template_name = "supermarket/supermarket_list.html"
 
-    def get(self, request, *args, **kwargs):
-        if request.user.is_customer:
-            return redirect('home')
-        supermarket_list = Supermarket.objects.all()
-        return render(request, 'supermarket/supermarket_list.html', {'supermarket_list': supermarket_list})
-
 
 class SupermarketDetailView(LoginRequiredMixin, DetailView):
     model = Supermarket
@@ -81,6 +75,11 @@ class SupermarketCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
         return form
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer or request.user.is_staff:
+            return redirect('supermarket-list')
+        return super(SupermarketCreateView, self).get(self, request, *args, **kwargs)
+
 
 class SupermarketUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Supermarket
@@ -97,10 +96,20 @@ class SupermarketUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView)
         form.fields['address'].widget = widgets.Textarea(attrs={'rows': 1})
         return form
 
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer or request.user.is_staff:
+            return redirect('supermarket-list')
+        return super(SupermarketUpdateView, self).get(self, request, *args, **kwargs)
+
 
 class SupermarketDeleteView(LoginRequiredMixin, DeleteView):
     model = Supermarket
     success_url = reverse_lazy('supermarket-list')
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_customer or request.user.is_staff:
+            return redirect('supermarket-list')
+        return super(SupermarketDeleteView, self).get(self, request, *args, **kwargs)
 
 
 class SupermarketDetailView1(LoginRequiredMixin, DetailView):
