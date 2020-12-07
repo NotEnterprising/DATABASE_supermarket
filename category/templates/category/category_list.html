@@ -3,8 +3,10 @@
 {% block title %}品类列表{% endblock title %}
 
 {% block breadcrumb %}
+    {% if user.is_admin or user.is_staff%}
     <a class="btn btn-primary" href="{% url 'category-create' %}"><i
             class="fas fa-plus"></i> 新品类</a>
+    {% endif %}
 {% endblock breadcrumb %}
 
 {% block content %}

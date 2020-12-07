@@ -3,47 +3,48 @@
 {% block title %}活动总览{% endblock title %}
 
 {% block breadcrumb %}
-    <a class="btn btn-primary" href="{% url 'create-SupermarketToActivity' %}"><i
-    class="fas fa-plus"></i> 创建活动</a>
-    <a class="btn btn-primary" href="{% url 'edit-SupermarketToActivity' %}"><i
-    class="fas fa-plus"></i> 删除活动</a>
+    {% if user.is_admin or user.is_staff %}
+        <a class="btn btn-primary" href="{% url 'create-SupermarketToActivity' %}"><i
+                class="fas fa-plus"></i> 创建活动</a>
+        <a class="btn btn-primary" href="{% url 'edit-SupermarketToActivity' %}"><i
+                class="fas fa-plus"></i> 删除活动</a>
+    {% endif %}
 {% endblock breadcrumb %}
 
 {% block fullcard %}
 
-  {% for key, result in results.items %}
-    <div class="card">
-      <div class="card-header">
-        {{result.supermarket}}
-      </div>
-      <div class="card-body">
-        <table class="table table-bordered table-sm">
-          <thead class="thead-light">
-            <tr>
-              <th>序号</th>
-              <th>活动名称</th>
-              <th>活动开始时间</th>
-              <th>活动结束时间</th>
-              <th>活动描述</th>
-            </tr>
-          </thead>
-            <tbody>
-            {% for activity in result.activitys %}
-              <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ activity.name }}</td>
-                <td>{{ activity.start_date }}</td>
-                <td>{{ activity.end_date }}</td>
-                <td>{{ activity.comment }}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+    {% for key, result in results.items %}
+        <div class="card">
+            <div class="card-header">
+                {{ result.supermarket }}
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>序号</th>
+                        <th>活动名称</th>
+                        <th>活动开始时间</th>
+                        <th>活动结束时间</th>
+                        <th>活动描述</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for activity in result.activitys %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ activity.name }}</td>
+                            <td>{{ activity.start_date }}</td>
+                            <td>{{ activity.end_date }}</td>
+                            <td>{{ activity.comment }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
 
-
-      </div>
-    </div>
-  {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
 
 {% endblock fullcard %}

@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 
 {% block title %}
-删除活动
+    删除活动
 {% endblock title %}
 
 {% block content-header %}
@@ -14,34 +14,34 @@
 {% endblock content-header %}
 
 {% block content %}
-<form method="POST">
-  {% csrf_token %}
-  {{ formset.management_form}}
+    <form method="POST">
+        {% csrf_token %}
+        {{ formset.management_form }}
 
-  <table id="studenttable" class="table table-sm">
-    <thead>
-      <tr>
-        <th></th>
-        <th>超市名称</th>
-        <th>活动名称</th>
-        <th>删除</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for form in formset %}
-      {{ form.id}}
-        <tr>
-          <td>{{forloop.counter }}</td>
-          <td>{{form.instance.supermarket }}</td>
-          <td>{{form.instance.activity }}</td>
-          <td>{{form.DELETE}}</td>
+        <table id="studenttable" class="table table-sm">
+            <thead>
+            <tr>
+                <th></th>
+                <th>超市名称</th>
+                <th>活动名称</th>
+                <th>删除</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for form in formset %}
+                {{ form.id }}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ form.instance.supermarket }}</td>
+                    <td>{{ form.instance.activity }}</td>
+                    <td>{{ form.DELETE }}</td>
 
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-  <input type="submit" class="btn btn-success" value="保存">
-  </form>
+        <input type="submit" class="btn btn-success" value="保存">
+    </form>
 
 {% endblock content %}
