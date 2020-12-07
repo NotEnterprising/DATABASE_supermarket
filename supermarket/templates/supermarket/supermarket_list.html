@@ -1,66 +1,119 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}超市列表{% endblock title %}
 
 {% block breadcrumb %}
-<a class="btn btn-primary" href="{% url 'supermarket-create' %}"><i
-    class="fas fa-plus"></i> 新的超市</a>
+    <a class="btn btn-primary" href="{% url 'supermarket-create' %}"><i
+            class="fas fa-plus"></i> 新的超市</a>
 {% endblock breadcrumb %}
 
 {% block content %}
-  <table id="stafftable" class="table table-bordered table-hover">
-    <thead class="thead-light">
-      <tr>
-        <th>序号</th>
-        <th>超市名称</th>
-        <th>开始营业时间</th>
-        <th>结束营业时间</th>
-        <th>电话号码</th>
-        <th>超市地址</th>
-      </tr>
-    </thead>
-    <tbody>
-
-      {% for supermarket in supermarket_list %}
-        <tr class='clickable-row' data-href="{% url 'supermarket-detail' supermarket.id %}">
-          <td>{{ forloop.counter}}</td>
-          <td>{{ supermarket.name}}</td>
-          <td>{{ supermarket.start_time}}</td>
-          <td>{{ supermarket.end_time}}</td>
-          <td>{{ supermarket.mobile_number}}</td>
-          <td>{{ supermarket.address}}</td>
+    <table id="stafftable" class="table table-bordered table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th>序号</th>
+            <th>超市名称</th>
+            <th>开始营业时间</th>
+            <th>结束营业时间</th>
+            <th>电话号码</th>
+            <th>超市地址</th>
         </tr>
-      {% endfor %}
+        </thead>
+        <tbody>
 
-    </tbody>
-  </table>
+        {% for supermarket in supermarket_list %}
+            <tr class='clickable-row' data-href="{% url 'supermarket-detail' supermarket.id %}">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ supermarket.name }}</td>
+                <td>{{ supermarket.start_time }}</td>
+                <td>{{ supermarket.end_time }}</td>
+                <td>{{ supermarket.mobile_number }}</td>
+                <td>{{ supermarket.address }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+    <div id="container" style="min-width:400px;height:400px"></div>
+    <script src="{% static 'dist/js/highcharts.js' %}"></script>
+    <script src="{% static 'dist/js/highcharts-more.js' %}"></script>
+    <script>
+    var chart = Highcharts.chart('container', {
+            chart: {
+                type: 'columnrange', // columnrange 依赖 highcharts-more.js
+                inverted: true
+            },
+            title: {
+                text: '超市营业时间'
+            },
+            xAxis: {
+                categories: [
+                    {% for x in supermarket_list %}
+                        "{{ x.name }}",
+                    {% endfor %}
+                ]
+            },
+            yAxis: {
+                title: {
+                    text: '温度 ( °C )'
+                }
+            },
+            tooltip: {
+                valueSuffix: '°C'
+            },
+            plotOptions: {
+                columnrange: {
+                    dataLabels: {
+                        enabled: true,
+                        formatter: function () {
+                            return this.y + '°C';
+                        }
+                    }
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                name: '温度',
+                data: [
+                    {% for x in supermarket_list %}
+                        ["{{ x.start_time }}", "{{ x.end_time }}"],
+                    {% endfor %}
+                ]
+            }]
+        });
+    </script>
+
 {% endblock content %}
 
 {% block morejs %}
-<script>
-   $('#stafftable').DataTable({
-    select: false,
-    language: {
-        "decimal": "",//小数的小数位符号  比如“，”作为数字的小数位符号
-        "emptyTable": "没有数据哟~~",//没有数据时要显示的字符串
-        "info": "当前 _START_ 条到 _END_ 条 共 _TOTAL_ 条",//左下角的信息，变量可以自定义，到官网详细查看
-        "infoEmpty": "无记录",//当没有数据时，左下角的信息
-        "infoFiltered": "(从 _MAX_ 条记录过滤)",//当表格过滤的时候，将此字符串附加到主要信息
-        "infoPostFix": "",//在摘要信息后继续追加的字符串
-        "thousands": ",",//千分位分隔符
-        "lengthMenu": "每页 _MENU_ 条记录",//用来描述分页长度选项的字符串
-        "loadingRecords": "加载中...",//用来描述数据在加载中等待的提示字符串 - 当异步读取数据的时候显示
-        "processing": "处理中...",//用来描述加载进度的字符串
-        "search": "搜索",//用来描述搜索输入框的字符串
-        "zeroRecords": "没有找到",//当没有搜索到结果时，显示
-        "paginate": {
-          "first": "首页",
-          "previous": "上一页",
-          "next": "下一页",
-          "last": "尾页"
-        }
-    }
-    });
-</script>
+    <script>
+        $('#stafftable').DataTable({
+            select: false,
+            language: {
+                "decimal": "",//小数的小数位符号  比如“，”作为数字的小数位符号
+                "emptyTable": "没有数据哟~~",//没有数据时要显示的字符串
+                "info": "当前 _START_ 条到 _END_ 条 共 _TOTAL_ 条",//左下角的信息，变量可以自定义，到官网详细查看
+                "infoEmpty": "无记录",//当没有数据时，左下角的信息
+                "infoFiltered": "(从 _MAX_ 条记录过滤)",//当表格过滤的时候，将此字符串附加到主要信息
+                "infoPostFix": "",//在摘要信息后继续追加的字符串
+                "thousands": ",",//千分位分隔符
+                "lengthMenu": "每页 _MENU_ 条记录",//用来描述分页长度选项的字符串
+                "loadingRecords": "加载中...",//用来描述数据在加载中等待的提示字符串 - 当异步读取数据的时候显示
+                "processing": "处理中...",//用来描述加载进度的字符串
+                "search": "搜索",//用来描述搜索输入框的字符串
+                "zeroRecords": "没有找到",//当没有搜索到结果时，显示
+                "paginate": {
+                    "first": "首页",
+                    "previous": "上一页",
+                    "next": "下一页",
+                    "last": "尾页"
+                }
+            }
+        });
+    </script>
 
 {% endblock morejs %}

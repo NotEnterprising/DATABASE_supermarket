@@ -1,47 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content-header %}
-{% if object %}
-<div class="card-header">
-  <a href="{% url 'customer-detail' object.user.id %}" class="btn btn-tool">
-    <i class="fas fa-backward"></i>
-  </a>
-</div>
+    {% if object %}
+        <div class="card-header">
+            <a href="{% url 'customer-detail' object.user.id %}" class="btn btn-tool">
+                <i class="fas fa-backward"></i>
+            </a>
+        </div>
 
-{% else %}
+    {% else %}
 
-<div class="card-header">
-  <a href="{% url 'customer-list' %}" class="btn btn-tool">
-    <i class="fas fa-backward"></i>
-  </a>
-</div>
-{% endif %}
+        <div class="card-header">
+            <a href="{% url 'customer-list' %}" class="btn btn-tool">
+                <i class="fas fa-backward"></i>
+            </a>
+        </div>
+    {% endif %}
 {% endblock content-header %}
 
 {% block title %}
 
-  {% if object %}
-    修改顾客{{ object }}的信息
-  {% else %}
-    加入新顾客
-  {% endif %}
+    {% if flag %}
+        加入新顾客
+    {% else %}
+        修改顾客的信息
+    {% endif %}
 
 {% endblock title %}
 
 
 {% block content %}
 
-<form action="" method="POST">
-  {% csrf_token %}
+    <form action="" method="POST">
+        {% csrf_token %}
 
-  {% include 'corecode/form_snippet.html' %}
+        {% include 'corecode/form_snippet.html' %}
 
-  {% if object %}
-    <input type="submit" class="btn btn-primary" value="修改">
-  {% else %}
-    <input type="submit" class="btn btn-primary" value="加入顾客">
-  {% endif %}
-</form>
+        {% if flag %}
+            <input type="submit" class="btn btn-primary" value="加入顾客">
+        {% else %}
+            <input type="submit" class="btn btn-primary" value="修改">
+        {% endif %}
+    </form>
 
 
 {% endblock content %}
