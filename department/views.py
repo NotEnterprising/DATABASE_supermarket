@@ -7,6 +7,7 @@ from django.forms import widgets, forms
 from django.urls import reverse_lazy
 
 from staff.models import Staff
+from supermarket.models import Supermarket
 from .models import Department
 
 
@@ -17,15 +18,30 @@ class DepartmentListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         departments = Department.objects.all()
+        supermarkets = Supermarket.objects.all()
+
         bulk = {}
         for department in departments:
             bulk[department.id] = {
                 "department": department,
                 "staffCount": department.staff_set.all().count()
             }
-
+        bulk1 = []
+        for supermarket in supermarkets:
+            temp = []
+            total = 0
+            for department in supermarket.department_set:
+                total = total + department.staff_set.all().count()
+            for department in supermarket.department_set:
+                proportion = float(department.staff_set.all().count() / total)
+                temp.append({"department": department, "proportion": proportion})
+            bulk1.append({
+                "supermarket": supermarket,
+                "departments": temp,
+            })
         context = {
-            "departments": bulk
+            "departments": bulk,
+            "supermarkets": bulk1,
         }
         return context
 
