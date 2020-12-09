@@ -4,17 +4,25 @@
 
 {% block content-header %}
     <div class="card-header">
-        <a href="{% url 'customer-list' %}" class="btn btn-tool">
-            <i class="fas fa-backward"></i>
-        </a>
-        {% if user.is_admin %}
+        {% if user.is_customer %}
+            <a href="{% url 'home' %}" class="btn btn-tool">
+                <i class="fas fa-backward"></i>
+            </a>
+        {% else %}
+            <a href="{% url 'customer-list' %}" class="btn btn-tool">
+                <i class="fas fa-backward"></i>
+            </a>
+        {% endif %}
+        {% if user.is_admin or user.is_customer %}
             <div class="card-tools">
                 <a href="{% url 'customer-update' object.user.id %}" class="btn btn-tool">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a href="{% url 'customer-delete' object.user.id %}" class="btn btn-tool">
-                    <i class="fas fa-times"></i>
-                </a>
+                {% if user.is_admin %}
+                    <a href="{% url 'customer-delete' object.user.id %}" class="btn btn-tool">
+                        <i class="fas fa-times"></i>
+                    </a>
+                {% endif %}
             </div>
         {% endif %}
     </div>
