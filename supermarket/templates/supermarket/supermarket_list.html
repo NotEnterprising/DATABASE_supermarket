@@ -38,6 +38,7 @@
         </tbody>
     </table>
 
+
     <div id="container" style="min-width:400px;height:400px"></div>
     <script src="{% static 'dist/js/highcharts.js' %}"></script>
     <script src="{% static 'dist/js/highcharts-more.js' %}"></script>
@@ -59,18 +60,23 @@
             },
             yAxis: {
                 title: {
-                    text: '温度 ( °C )'
+                    text: '时间'
                 }
-            },
-            tooltip: {
-                valueSuffix: '°C'
             },
             plotOptions: {
                 columnrange: {
                     dataLabels: {
                         enabled: true,
+
                         formatter: function () {
-                            return this.y + '°C';
+                            var temp = Math.floor(this.y);
+                            var little = this.y - temp;
+                            var end = Math.round(little*60)
+                            if (end < 10) {
+                                return temp + ':0' + end;
+                            } else {
+                                return temp + ':' + end;
+                            }
                         }
                     }
                 }
@@ -79,10 +85,10 @@
                 enabled: false
             },
             series: [{
-                name: '温度',
+                name: '营业时间',
                 data: [
-                    {% for x in supermarket_list %}
-                        ["{{ x.start_time }}", "{{ x.end_time }}"],
+                    {% for x in time %}
+                        [{{ x.start_time }}, {{ x.end_time }}],
                     {% endfor %}
                 ]
             }]
