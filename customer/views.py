@@ -30,7 +30,7 @@ class CustomerDetailView(LoginRequiredMixin, DetailView):
     context_object_name = 'customer'
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_customer:
+        if request.user.is_customer and (request.user.id != self.kwargs['pk']):
             return redirect('home')
         return super(CustomerDetailView, self).get(self, request, *args, **kwargs)
 
@@ -104,7 +104,7 @@ class CustomerUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return render(request, 'customer/customer_form.html', context={'form': form})
 
     def get(self, request, *args, **kwargs):
-        if request.user.is_customer:
+        if request.user.is_customer and (request.user.id != self.kwargs['pk']):
             return redirect('home')
         elif request.user.is_staff:
             return redirect('customer-list')

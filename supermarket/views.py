@@ -18,6 +18,19 @@ class SupermarketListView(LoginRequiredMixin, ListView):
     context_object_name = 'supermarket_list'
     template_name = "supermarket/supermarket_list.html"
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        supermarket_list = Supermarket.objects.all()
+        time = []
+        for supermarket in supermarket_list:
+            temp1 = float(supermarket.start_time.hour) + float(supermarket.start_time.minute) / 60
+            temp2 = float(supermarket.start_time.hour) + float(supermarket.start_time.minute) / 60
+            time.append((temp1, temp2))
+        context = {
+            "supermarket_list": supermarket_list,
+            "time": time,
+        }
+        return context
+
 
 class SupermarketDetailView(LoginRequiredMixin, DetailView):
     model = Supermarket

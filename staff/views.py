@@ -124,7 +124,7 @@ class StaffUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get(self, request, *args, **kwargs):
         if request.user.is_customer:
             return redirect('home')
-        elif request.user.is_staff:
+        elif request.user.is_staff and (request.user.id != self.kwargs['pk']):
             return redirect('staff-list')
         staff = Staff.objects.get(user_id=self.kwargs['pk'])
         form = self.form_class(instance=staff)
