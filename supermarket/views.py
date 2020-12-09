@@ -24,7 +24,8 @@ class SupermarketListView(LoginRequiredMixin, ListView):
         for supermarket in supermarket_list:
             temp1 = float(supermarket.start_time.hour) + float(supermarket.start_time.minute) / 60
             temp2 = float(supermarket.start_time.hour) + float(supermarket.start_time.minute) / 60
-            time.append((temp1, temp2))
+            temp = {'start_time': temp1, 'end_time': temp2}
+            time.append(temp)
         context = {
             "supermarket_list": supermarket_list,
             "time": time,
