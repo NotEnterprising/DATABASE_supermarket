@@ -32,8 +32,8 @@ class DepartmentListView(LoginRequiredMixin, ListView):
             for department in supermarket.department_set.all():
                 allcount = allcount + department.staff_set.all().count()
 
+        count = 0
         for supermarket in supermarkets:
-            count = 0
             temp = []
             total = 0
             for department in supermarket.department_set.all():
