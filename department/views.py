@@ -27,17 +27,22 @@ class DepartmentListView(LoginRequiredMixin, ListView):
                 "staffCount": department.staff_set.all().count()
             }
         bulk1 = []
+        allcount = 0
+        for supermarket in supermarkets:
+            for department in supermarket.department_set:
+                allcount = allcount + department.staff_set.all().count()
         for supermarket in supermarkets:
             temp = []
             total = 0
             for department in supermarket.department_set:
                 total = total + department.staff_set.all().count()
             for department in supermarket.department_set:
-                proportion = float(department.staff_set.all().count() / total)
+                proportion = float(department.staff_set.all().count() / allcount)
                 temp.append({"department": department, "proportion": proportion})
             bulk1.append({
                 "supermarket": supermarket,
                 "departments": temp,
+                "proportion": float(total / allcount)
             })
         context = {
             "departments": bulk,
