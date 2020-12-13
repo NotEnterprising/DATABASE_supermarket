@@ -38,7 +38,7 @@ def create_purchase(request):
             messages.warning(request, "你没有选择任何商品")
     commoditys = []
     for c in commoditysBefore:
-        if c.supermarket is not None:
+        if (c.supermarket is not None) and c.count > 0:
             commoditys.append(c)
     return render(request, 'create_purchase.html', {"commoditys": commoditys})
 
