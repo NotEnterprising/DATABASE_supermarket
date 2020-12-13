@@ -15,6 +15,7 @@
                 <thead class="thead-light">
                 <tr>
                     <th>序号</th>
+                    <th>购买者</th>
                     <th>商品名称</th>
                     <th>商品价格</th>
                     <th>剩余数量</th>
@@ -26,6 +27,7 @@
                     <tbody>
                     <tr>
                         <td>{{ forloop.counter }}</td>
+                        <td>{{ purchase.customer }}</td>
                         <td>{{ purchase.commodity }}</td>
                         <td>{{ purchase.commodity.price }}</td>
                         <td>{{ purchase.commodity.count }}</td>
