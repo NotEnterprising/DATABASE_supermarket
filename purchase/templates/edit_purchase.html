@@ -38,8 +38,8 @@
                     <td>{{ form.instance.commodity.price }}</td>
                     <td>{{ form.instance.commodity.count }}</td>
                     <td>{{ form.instance.commodity.production_date }}</td>
-                    {% if  commodity.category %}
-                        <td>{{ commodity.category }}</td>
+                    {% if  form.instance.commodity.category %}
+                        <td>{{ form.instance.commodity.category }}</td>
                     {% else %}
                         <td>其他</td>
                     {% endif %}
@@ -51,7 +51,7 @@
         </table>
 
 
-        <input type="submit" class="btn btn-success" value="保存">
+        <input type="submit" class="btn btn-success" value="购买">
     </form>
 
 {% endblock content %}
