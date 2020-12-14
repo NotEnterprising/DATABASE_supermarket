@@ -75,6 +75,10 @@ def edit_purchase(request):
                 i['id'].commodity.count = i['id'].commodity.count - i['num']
                 i['id'].commodity.save()
             form.save()
+            purchases = Purchase.objects.all()
+            for p in purchases:
+                if p.num == 0:
+                    p.delete()
             messages.success(request, '购买成功')
             return redirect('view-purchase')
 
