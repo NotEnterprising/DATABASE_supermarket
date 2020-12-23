@@ -8,6 +8,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms import widgets, forms
 from django.urls import reverse_lazy
 
+from purchase.models import Purchase
 from supermarketToactivity.models import SupermarketToActivity
 from supermarketToexpress.models import SupermarketToExpress
 from .models import Supermarket
@@ -71,6 +72,15 @@ class SupermarketDetailView(LoginRequiredMixin, DetailView):
         context['resultsOfExpress'] = bulk1
         context['departments'] = departments
         context['commoditys'] = commoditys
+
+        purchases = Purchase.objects.all()
+
+        value = [0] * 12
+        for p in purchases:
+            if supermarket.id == p.commodity.supermarket.id:
+                date = p.purchase_date.month
+                value[date - 1] = value[date - 1] + p.commodity.price * p.num
+        context['income'] = value
         return context
 
 
