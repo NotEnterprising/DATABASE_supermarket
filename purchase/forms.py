@@ -11,4 +11,4 @@ class CreatePurchase(forms.Form):
         queryset=Commodity.objects.all(), widget=forms.CheckboxSelectMultiple)
 
 
-EditPurchase = modelformset_factory(Purchase, fields=['num'], extra=0, can_delete=True)
+EditPurchase = modelformset_factory(Purchase, fields=['num', 'purchase_date'], extra=0, can_delete=True)

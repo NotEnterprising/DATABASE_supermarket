@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'supermarketToexpress',
     'purchase',
     'account',
+    'imagekit',
 ]
 
 MIDDLEWARE = [

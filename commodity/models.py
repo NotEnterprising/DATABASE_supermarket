@@ -1,7 +1,11 @@
+import os
+
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from django.core.validators import RegexValidator, MaxValueValidator, MinValueValidator
+from imagekit.models import ImageSpecField
+from pilkit.processors import ResizeToFill
 
 from category.models import Category
 from supermarket.models import Supermarket
@@ -9,8 +13,23 @@ from supplier.models import Supplier
 from warehouse.models import Warehouse
 
 
+def user_directory_path(instance, filename):
+    ext = filename.split('.').pop()
+    filename = '{0}{1}.{2}'.format(instance.name, instance.identity_card, ext)
+    return os.path.join(instance.major.name, filename)  # 系统路径分隔符差异，增强代码重用性
+
+
 class Commodity(models.Model):
     name = models.CharField(max_length=200, verbose_name='商品名称')
+
+    photo = models.ImageField('照片', upload_to=user_directory_path, blank=True, null=True)
+
+    # photo_process = ImageSpecField(
+    #     source='photo',
+    #     processors=[ResizeToFill(300, 321)],
+    #     format='JPEG',
+    #     options={'quality': 95}  # 处理后的图片质量
+    # )
 
     price = models.FloatField(default=0, verbose_name='商品价格', validators=[MinValueValidator(0)])
 

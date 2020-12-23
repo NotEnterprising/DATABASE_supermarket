@@ -203,7 +203,7 @@
 		name: '{{ object.name }}收入',
 		data: [
             {% for i in income %}
-                    i,
+                {{ i }},
             {% endfor %}
             ]
 	},],
