@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 
 {% block title %}
@@ -17,35 +18,52 @@
     <form method="POST">
     {% csrf_token %}
 
-    <table id="studenttable" class="table table-sm table-bordered" data-page-length='100'>
-        <thead class="thead-light">
-        <tr>
-            <th><input type="checkbox" id="selecter"></th>
-            <th>商品名称</th>
-            <th>商品价格</th>
-            <th>剩余数量</th>
-            <th>生产日期</th>
-            <th>品类</th>
-        </tr>
-        </thead>
-        <tbody>
         {% for commodity in commoditys %}
-            <tr>
-                <td><input type="checkbox" id="{{ commodity.id }}" name="commoditys" value="{{ commodity.id }}"></td>
-                <td>{{ commodity }} </td>
-                <td>{{ commodity.price }}</td>
-                <td>{{ commodity.count }}</td>
-                <td>{{ commodity.production_date }}</td>
+            <div style="display:inline-block;width:370px;height:600px">
+                <div>
+                    <img src="{% static 'dist/img/supermarket.png' %}" width="320px">
+                </div>
+                <p>{{ commodity }}</p>
                 {% if  commodity.category %}
-                    <td>{{ commodity.category }}</td>
+                    <p>{{ commodity.category }}</p>
                 {% else %}
-                    <td>其他</td>
+                    <p>其他</p>
                 {% endif %}
-            </tr>
+                <p>单价：{{ commodity.price }} &nbsp&nbsp&nbsp&nbsp 剩余数量：{{ commodity.count }}</p>
+                <p>生产日期：{{ commodity.production_date }}</p>
+                <input type="checkbox" id="{{ commodity.id }}" name="commoditys" value="{{ commodity.id }}">
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
 
+{#    <table id="studenttable" class="table table-sm table-bordered" data-page-length='100'>#}
+{#        <thead class="thead-light">#}
+{#        <tr>#}
+{#            <th><input type="checkbox" id="selecter"></th>#}
+{#            <th>商品名称</th>#}
+{#            <th>商品价格</th>#}
+{#            <th>剩余数量</th>#}
+{#            <th>生产日期</th>#}
+{#            <th>品类</th>#}
+{#        </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        {% for commodity in commoditys %}#}
+{#            <tr>#}
+{#                <td><input type="checkbox" id="{{ commodity.id }}" name="commoditys" value="{{ commodity.id }}"></td>#}
+{#                <td>{{ commodity }} </td>#}
+{#                <td>{{ commodity.price }}</td>#}
+{#                <td>{{ commodity.count }}</td>#}
+{#                <td>{{ commodity.production_date }}</td>#}
+{#                {% if  commodity.category %}#}
+{#                    <td>{{ commodity.category }}</td>#}
+{#                {% else %}#}
+{#                    <td>其他</td>#}
+{#                {% endif %}#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#        </tbody>#}
+{#    </table>#}
+    <p></p>
     <input type="submit" class="btn btn-success mt-2" value="继续 >">
 
     </form>
