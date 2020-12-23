@@ -178,4 +178,49 @@
         </div>
     </div>
 
+
+    <div id="container" style="min-width:400px;height:400px"></div>
+    <script src="{% static 'dist/js/highcharts.js' %}"></script>
+    <script>
+    var chart = Highcharts.chart('container', {
+	title: {
+		text: '超市各月收入变化'
+	},
+    xAxis: {
+		categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+	},
+	yAxis: {
+		title: {
+			text: '超市收入'
+		}
+	},
+	legend: {
+		layout: 'vertical',
+		align: 'right',
+		verticalAlign: 'middle'
+	},
+	series: [{
+		name: '{{ object.name }}收入',
+		data: [
+            {% for i in income %}
+                    i,
+            {% endfor %}
+            ]
+	},],
+	responsive: {
+		rules: [{
+			condition: {
+				maxWidth: 500
+			},
+			chartOptions: {
+				legend: {
+					layout: 'horizontal',
+					align: 'center',
+					verticalAlign: 'bottom'
+				}
+			}
+		}]
+	}
+});
+    </script>
 {% endblock content %}
